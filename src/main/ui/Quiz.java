@@ -41,7 +41,8 @@ public class Quiz {
         System.out.println("1 = strongly disagree, 2 = disagree, 3 = neutral, 4 = agree, 5 = strongly agree");
         System.out.println(questions);
         Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
+        answers = scan.nextInt();
+        return answers;
 
     }
 
