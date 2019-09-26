@@ -20,7 +20,7 @@ public class Question {
     }
 
     //setters:
-    public void setCategory(char category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 

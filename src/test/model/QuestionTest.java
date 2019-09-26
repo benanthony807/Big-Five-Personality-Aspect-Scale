@@ -20,6 +20,11 @@ public class QuestionTest {
         // see if the constructor makes a question with the inputted category and question
         assertEquals(1, testQ1.getCategory());
         assertEquals("I am the life of the party", testQ1.getQuestion());
+
+        testQ1.setCategory(0);
+        testQ1.setQuestion("New question");
+        assertEquals(0, testQ1.getCategory());
+        assertEquals("New question", testQ1.getQuestion());
     }
 
 }

@@ -4,6 +4,9 @@ package model;
 //import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -84,12 +87,23 @@ public class ScoreTest {
 //    public void testRawScoresToPercentiles() {
 //
 //    }
-//
-//    @Test
-//    void testGetResults() {
-//        ArrayList<Integer> expected = new ArrayList<>();
-//        expected.add(3);
-//        expected.add(4);
-//        expected.add(6);
-//    }
+
+    @Test
+    void testGetResults() {
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(3, 4, 5, 0, 0));
+        testScore.setRawScore(expected);
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        // code taken from
+        // https://stackoverflow.com/questions/32241057/how-to-test-a-print-method-in-java-using-junit
+
+        testScore.getResults();
+
+        assertEquals("Your results (in raw scores):\nOpenness: 3\nConscientiousness: " +
+                              "4\nExtroversion: 5\nAgreeableness: 0\nNeuroticism: 0\n", outContent.toString());
+
+
+
+    }
 }

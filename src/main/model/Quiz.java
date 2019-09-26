@@ -57,7 +57,6 @@ public class Quiz {
         if (userInput.equals("yes")) {
             System.out.println("Quiz beginning");
         } else {
-            System.out.println("Come back when you're ready");
             System.exit(0);
         }
     }
