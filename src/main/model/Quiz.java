@@ -48,20 +48,17 @@ public class Quiz {
     //EFFECTS: welcomes users, asks them if they're ready to start quiz, if yes starts quiz, if not
     //         waits until they are ready
     public void setUpQuiz() {
-        System.out.println("Welcome! This application provides Big Five Personality tests.");
+        System.out.println("Welcome! This program provides Big Five Personality tests.");
         System.out.println("Are you ready to start the quiz? (enter yes or no)");
-        // make this into a method called checkIfReady
-        if (getUserInput().equals("yes")) {
+        checkIfReady(getUserInput());
+    }
+
+    public void checkIfReady(String userInput) {
+        if (userInput.equals("yes")) {
             System.out.println("Quiz beginning");
         } else {
-            // make this into a method called readyYet
-            System.out.println("Let me know when you're ready! (enter ready when ready)");
-            while (true) {
-                if (getUserInput().equals("ready")) {
-                    break;
-                }
-            }
-            System.out.println("Beginning Quiz");
+            System.out.println("Come back when you're ready");
+            System.exit(0);
         }
     }
 
@@ -93,3 +90,4 @@ public class Quiz {
         System.out.println("Quiz complete.");
     }
 }
+

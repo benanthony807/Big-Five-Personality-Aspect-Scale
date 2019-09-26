@@ -2,11 +2,8 @@ package model;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScoreTest {
@@ -79,12 +76,12 @@ public class ScoreTest {
         assertEquals(expected, testScore.sortAnswers(testQuestions, testAnswers));
     }
 
-
-    // Not yet at percentile functionality so no tests for this
-    @Test
-    public void testRawScoresToPercentiles() {
-
-    }
+//
+//    // Not yet at percentile functionality so no tests for this
+//    @Test
+//    public void testRawScoresToPercentiles() {
+//
+//    }
 //
 //    @Test
 //    void testGetResults() {

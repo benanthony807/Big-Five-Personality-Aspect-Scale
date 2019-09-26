@@ -1,8 +1,12 @@
 package model;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -54,24 +58,48 @@ public class QuizTest {
         assertEquals(1, testAnswers.get(0));
     }
 
-
     @Test
-    public void testRun() {
+    public void testCheckIfReadyUserReady() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        // code taken from
+        // https://stackoverflow.com/questions/32241057/how-to-test-a-print-method-in-java-using-junit
 
+        testQuiz.checkIfReady("yes");
 
+        assertEquals("Quiz beginning\n", outContent.toString());
     }
 
-    // method doesn't need to be tested bc takes user input
-    @Test
-    public void testSetUpQuiz() {
+//    @Test
+//    public void testCheckIfReadyUserNotReady() {
+//        https://stackoverflow.com/questions/309396/java-how-to-test-methods-that-call-system-exit
+//        public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+//
+//        testQuiz.checkIfReady("no");
+//
+//        assertEquals(System.exit(0), testQuiz.checkIfReady("no"));
+//    }
 
-    }
 
 
-    @Test
-    public void testRunQuiz() {
-
-    }
+//
+//    @Test
+//    public void testRun() {
+//
+//
+//    }
+//
+//    // method doesn't need to be tested bc takes user input
+//    @Test
+//    public void testSetUpQuiz() {
+//
+//    }
+//
+//
+//    @Test
+//    public void testRunQuiz() {
+//
+//    }
 
 
 }
