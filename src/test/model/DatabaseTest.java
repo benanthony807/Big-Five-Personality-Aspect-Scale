@@ -1,12 +1,14 @@
 package model;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
+
 
 public class DatabaseTest {
     Score testScore;
@@ -17,7 +19,7 @@ public class DatabaseTest {
     Question testQ3;
     Database testDatabase;
 
-    @Before
+    @BeforeEach
     public void runBefore() {
         testQ1 = new Question(0, "I am the life of the party");
         testQ2 = new Question(4, "I prefer quiet spaces");

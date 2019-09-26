@@ -1,14 +1,17 @@
 package model;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+//import org.junit.Before;
+//import org.junit.Rule;
+//import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+//import static org.junit.Assert.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +28,7 @@ public class QuizTest {
     Question testQ3;
 
 
-    @Before
+    @BeforeEach
     public void runBefore() {
         testQ1 = new Question(0, "I am the life of the party");
         testQ2 = new Question(4, "I prefer quiet spaces");

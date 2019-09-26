@@ -1,15 +1,14 @@
 package model;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuestionTest {
     Question testQ1;
     Question testQ2;
 
-    @Before
+    @BeforeEach
     public void runBefore() {
         testQ1 = new Question(1, "I am the life of the party");
         testQ2 = new Question(2, "I prefer quiet spaces");
