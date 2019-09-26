@@ -3,7 +3,7 @@ package model;
 //import org.junit.Before;
 //import org.junit.Rule;
 //import org.junit.Test;
-import org.junit.Rule;
+
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,15 +75,15 @@ public class QuizTest {
 
         assertEquals("Quiz beginning\n", outContent.toString());
     }
-    @Rule
-    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
-
-    @Test
-    public void testCheckIfReadyUserNotReady() {
-        //https://stackoverflow.com/questions/309396/java-how-to-test-methods-that-call-system-exit
-        exit.expectSystemExit();
-        testQuiz.checkIfReady("no");
-    }
+//    @Rule
+//    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+//
+//    @Test
+//    public void testCheckIfReadyUserNotReady() {
+//        //https://stackoverflow.com/questions/309396/java-how-to-test-methods-that-call-system-exit
+//        exit.expectSystemExit();
+//        testQuiz.checkIfReady("no");
+//    }
 
 
 
