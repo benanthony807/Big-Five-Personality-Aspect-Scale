@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -8,13 +9,13 @@ public class Quiz {
 
     private ArrayList<Question> questions;
     private ArrayList<Integer> answers;
-    private ArrayList<Score> pastScores;
+//    private ArrayList<Score> pastScores;
 
-    //EFFECTS: constructs a Quiz questions and past scores but no answers
-    public Quiz(ArrayList<Question> questions, ArrayList<Score> pastScores) {
+    //EFFECTS: constructs a Quiz with questions and past scores but no answers
+    public Quiz(ArrayList<Question> questions) {
         this.questions = questions;
-        this.pastScores = pastScores;
-        answers = new ArrayList<Integer>(Arrays.asList(0, 0, 0));
+//        this.pastRawScores = pastRawScores;
+        answers = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0));
     }
 
     //getters:
@@ -26,20 +27,30 @@ public class Quiz {
         return answers;
     }
 
-    public ArrayList<Score> getPastScores() {
-        return pastScores;
+//    public ArrayList<RawScore> getPastRawScores() {
+//        return pastRawScores;
+//    }
+
+    //setters
+    public void setAnswers(ArrayList<Integer> answers) {
+        this.answers = answers;
     }
 
     //REQUIRES
     //MODIFIES: this
     //EFFECTS: runs the quiz setup, if that passes runs the actual quiz, then runs a method to deal
     //         with scores and returns percentile scores
-    public void run() {
+    public void run() throws IOException {
         setUpQuiz();
         runQuiz();
-        Score quizScore = new Score();
-        quizScore.compileScores(this.questions, this.answers, this.pastScores);
-        quizScore.getResults();
+        RawScore quizRawScore = new RawScore(this);
+        quizRawScore.compileScores();
+        quizRawScore.write(quizRawScore.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
+//        Percentile quizPercentile = new Percentile(quizRawScore.getRawScore());
+//        quizPercentile.compileScores();
+//        quizPercentile.getResults();
+        quizRawScore.getResults();
+
 
     }
 
@@ -76,6 +87,7 @@ public class Quiz {
         Scanner scan = new Scanner(System.in);
         return scan.nextInt();
     }
+
 
     //MODIFIES: this
     //EFFECTS: asks questions, stores user's answers, and repeats until all questions are asked

@@ -1,30 +1,29 @@
 package ui;
 
-import model.Database;
 import model.Question;
 import model.Quiz;
-import model.Score;
+import model.RawScore;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
-        Question q1 = new Question(3, "I am the life of the party");
-        Question q2 = new Question(4, "I like to please others");
-        Question q3 = new Question(1, "I am fearful of the future");
+    public static void main(String[] args) throws IOException {
+        Question q0 = new Question(0, "I am interested in abstract ideas");
+        Question q1 = new Question(1, "I am always on time");
+        Question q2 = new Question(2, "I am the life of the party");
+        Question q3 = new Question(3, "I like to please others");
+        Question q4 = new Question(4, "I am fearful of the future");
 
-        ArrayList<Question> bigFiveQuestions = new ArrayList<>();
-        bigFiveQuestions.add(q1);
-        bigFiveQuestions.add(q2);
-        bigFiveQuestions.add(q3);
+        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
 
+//        RawScore rawScoreForDatabase = new RawScore();
+        ArrayList<RawScore> pastRawScores = new ArrayList<>();
+//        pastRawScores.add(rawScoreForDatabase);
 
-        Score scoreForDatabase = new Score();
-        ArrayList<Score> pastScores = new ArrayList<>();
-        pastScores.add(scoreForDatabase);
-
-        Database bigFiveDatabase = new Database(bigFiveQuestions, pastScores);
-        Quiz bigFiveQuiz = new Quiz(bigFiveDatabase.getOptions(), bigFiveDatabase.getPastScores());
+//        Database bigFiveDatabase = new Database(bigFiveQuestions, pastRawScores);
+        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
         bigFiveQuiz.run();
     }
 }
