@@ -45,7 +45,6 @@ public class Quiz {
         quizRawScoreRegularCoded.compileScores();
         RawScoreGeneral quizRawScoreGeneral = new RawScoreGeneral(this);
         quizRawScoreGeneral.fillRawScoreGeneral(quizRawScoreRegularCoded, quizRawScoreReverseCoded);
-        quizRawScoreGeneral.compileScores();
         quizRawScoreGeneral.write(quizRawScoreGeneral.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
 //        Percentile quizPercentile = new Percentile(quizRawScore.getRawScore());
 //        quizPercentile.compileScores();
