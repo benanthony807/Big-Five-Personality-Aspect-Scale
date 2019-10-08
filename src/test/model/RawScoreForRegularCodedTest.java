@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.Quiz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,8 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class RawScoreTest {
-    RawScore testRawScore;
+public class RawScoreForRegularCodedTest {
+    RawScoreForRegularCoded testRawScore;
     ArrayList<Question> testQuestions;
     ArrayList<Integer> testAnswers;
     Question testQ1;
@@ -25,14 +26,15 @@ public class RawScoreTest {
 
     @BeforeEach
     public void runBefore() {
-        testQ1 = new Question(0, "test question1");
-        testQ2 = new Question(4, "test question2");
-        testQ3 = new Question(0, "test question3");
+        testQ1 = new Question(0, "test question1", false);
+        testQ2 = new Question(4, "test question2", false);
+        testQ3 = new Question(0, "test question3", false);
         testQuestions = new ArrayList<Question>(Arrays.asList(testQ1, testQ2, testQ3));
-        testQuiz = new Quiz(testQuestions);
-
-        testRawScore = new RawScore(testQuiz);
         testAnswers = new ArrayList<Integer>(Arrays.asList(1, 2, 5));
+
+        testQuiz = new Quiz(testQuestions, testAnswers);
+
+        testRawScore = new RawScoreForRegularCoded(testQuiz);
 
     }
 
@@ -50,13 +52,22 @@ public class RawScoreTest {
     }
 
     @Test
-    public void testCompileScores() {
+    public void testCompileScoresNoItemsRemoved() {
         ArrayList<Integer> expectedRawScore = new ArrayList<>(Arrays.asList(6, 0, 0, 0, 2));
-        testQuiz.setAnswers(testAnswers);
 
         testRawScore.compileScores();
         assertEquals(expectedRawScore, testRawScore.getRawScore());
 //        this.rawScore = sortAnswers(this.filledQuiz.getQuestions(), this.filledQuiz.getAnswers())
+    }
+
+    @Test
+    public void testCompileScoresItemsRemoved() {
+        testQ1.setIsReverseCoded(true);
+        ArrayList<Integer> expectedRawScore = new ArrayList<>(Arrays.asList(5, 0, 0, 0, 2));
+
+        testRawScore.compileScores();
+        assertEquals(expectedRawScore, testRawScore.getRawScore());
+
     }
 
     @Test

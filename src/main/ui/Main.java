@@ -1,7 +1,6 @@
 package ui;
 
 import model.Question;
-import model.Quiz;
 import model.RawScore;
 
 import java.io.IOException;
@@ -9,21 +8,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Question q0 = new Question(0, "I am interested in abstract ideas");
-        Question q1 = new Question(1, "I am always on time");
-        Question q2 = new Question(2, "I am the life of the party");
-        Question q3 = new Question(3, "I like to please others");
-        Question q4 = new Question(4, "I am fearful of the future");
+    public static void main(String[] args) throws IOException, CloneNotSupportedException {
+        Question q0 = new Question(0, "I am interested in abstract ideas", false);
+        Question q1 = new Question(1, "I am always on time", false);
+        Question q2 = new Question(2, "I am not the life of the party", true);
+        Question q3 = new Question(3, "I like to please others", false);
+        Question q4 = new Question(4, "I am fearful of the future", false);
 
         ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
 
 //        RawScore rawScoreForDatabase = new RawScore();
-        ArrayList<RawScore> pastRawScores = new ArrayList<>();
+//        ArrayList<RawScore> pastRawScores = new ArrayList<>();
 //        pastRawScores.add(rawScoreForDatabase);
 
 //        Database bigFiveDatabase = new Database(bigFiveQuestions, pastRawScores);
-        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
+        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions, new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0)));
         bigFiveQuiz.run();
     }
 }

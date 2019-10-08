@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuestionTest {
     Question testQ1;
@@ -10,8 +11,8 @@ public class QuestionTest {
 
     @BeforeEach
     public void runBefore() {
-        testQ1 = new Question(1, "I am the life of the party");
-        testQ2 = new Question(2, "I prefer quiet spaces");
+        testQ1 = new Question(1, "I am the life of the party", false);
+        testQ2 = new Question(2, "I prefer quiet spaces", true);
 
     }
 
@@ -25,6 +26,8 @@ public class QuestionTest {
         testQ1.setQuestion("New question");
         assertEquals(0, testQ1.getCategory());
         assertEquals("New question", testQ1.getQuestion());
+        testQ1.setIsReverseCoded(true);
+        assertTrue(testQ1.getIsReverseCoded());
     }
 
 }

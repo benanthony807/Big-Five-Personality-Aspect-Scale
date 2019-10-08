@@ -1,4 +1,4 @@
-package model;
+/* package model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Percentile implements Score, FileReaderWriter {
+public class Percentile extends FileReaderWriter implements Score {
 
     private ArrayList<Integer> percentile;
     private ArrayList<Integer> rawScore;
@@ -17,6 +17,9 @@ public class Percentile implements Score, FileReaderWriter {
         this.rawScore = rawScore;
     }
 
+    //REQUIRES: answers are integers from 1-5
+    //MODIFIES: this
+    //EFFECTS: turns question-answer data into raw scores
     @Override
     public void compileScores() {
         //this will have to take in all of the raw scores also, so Percentile needs a rawscore field
@@ -26,6 +29,7 @@ public class Percentile implements Score, FileReaderWriter {
         // then it returns that number as a fraction of the size of the bank
     }
 
+    //EFFECTS: prints out results of quiz (in percentiles)
     @Override
     public void getResults() {
 
@@ -41,17 +45,13 @@ public class Percentile implements Score, FileReaderWriter {
     }
 
     @Override
-    public List<String> read(String input) throws IOException {
-        return null;
+    public void write(List<String> l, String wf) throws FileNotFoundException, UnsupportedEncodingException {
+
     }
 
     @Override
-    public void write(List<String> lines, String output) throws FileNotFoundException, UnsupportedEncodingException {
-
+    public ArrayList<String> splitOnSpace(String line) {
+        return null;
     }
-
-//    @Override
-//    public ArrayList<String> splitOnSpace(String line) {
-//        return null;
-//    }
 }
+*/

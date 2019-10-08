@@ -1,7 +1,12 @@
-package model;
+package ui;
 
+import model.Question;
+import model.RawScore;
+import model.RawScoreForRegularCoded;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.Quiz;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -22,14 +27,15 @@ public class QuizTest {
 
     @BeforeEach
     public void runBefore() {
-        testQ1 = new Question(0, "test question1");
-        testQ2 = new Question(4, "test question2");
-        testQ3 = new Question(0, "test question3");
+        testQ1 = new Question(0, "test question1", false);
+        testQ2 = new Question(4, "test question2", false);
+        testQ3 = new Question(0, "test question3", false);
         testQuestions = new ArrayList<Question>(Arrays.asList(testQ1, testQ2, testQ3));
-        testQuiz = new Quiz(testQuestions);
-
-        testRawScore = new RawScore(testQuiz);
         testAnswers = new ArrayList<Integer>(Arrays.asList(1, 2, 5));
+        testQuiz = new Quiz(testQuestions, testAnswers);
+
+        testRawScore = new RawScoreForRegularCoded(testQuiz);
+
     }
 
     @Test

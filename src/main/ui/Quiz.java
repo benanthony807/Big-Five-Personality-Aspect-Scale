@@ -1,4 +1,6 @@
-package model;
+package ui;
+
+import model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,13 +11,16 @@ public class Quiz {
 
     private ArrayList<Question> questions;
     private ArrayList<Integer> answers;
-//    private ArrayList<Score> pastScores;
 
     //EFFECTS: constructs a Quiz with questions and past scores but no answers
-    public Quiz(ArrayList<Question> questions) {
+    public Quiz(ArrayList<Question> questions, ArrayList<Integer> answers) {
         this.questions = questions;
-//        this.pastRawScores = pastRawScores;
-        answers = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0));
+        this.answers = answers;
+    }
+
+    public Quiz(Quiz another) {
+        this.questions = new ArrayList<>(another.questions);
+        this.answers = new ArrayList<>(another.answers);
     }
 
     //getters:
@@ -27,15 +32,6 @@ public class Quiz {
         return answers;
     }
 
-//    public ArrayList<RawScore> getPastRawScores() {
-//        return pastRawScores;
-//    }
-
-    //setters
-    public void setAnswers(ArrayList<Integer> answers) {
-        this.answers = answers;
-    }
-
     //REQUIRES
     //MODIFIES: this
     //EFFECTS: runs the quiz setup, if that passes runs the actual quiz, then runs a method to deal
@@ -43,15 +39,18 @@ public class Quiz {
     public void run() throws IOException {
         setUpQuiz();
         runQuiz();
-        RawScore quizRawScore = new RawScore(this);
-        quizRawScore.compileScores();
-        quizRawScore.write(quizRawScore.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
+        RawScoreForRegularCoded quizRawScoreRegularCoded = new RawScoreForRegularCoded(new Quiz(this));
+        RawScoreForReverseCoded quizRawScoreReverseCoded = new RawScoreForReverseCoded(new Quiz(this));
+        quizRawScoreReverseCoded.compileScores();
+        quizRawScoreRegularCoded.compileScores();
+        RawScoreGeneral quizRawScoreGeneral = new RawScoreGeneral(this);
+        quizRawScoreGeneral.fillRawScoreGeneral(quizRawScoreRegularCoded, quizRawScoreReverseCoded);
+        quizRawScoreGeneral.compileScores();
+        quizRawScoreGeneral.write(quizRawScoreGeneral.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
 //        Percentile quizPercentile = new Percentile(quizRawScore.getRawScore());
 //        quizPercentile.compileScores();
 //        quizPercentile.getResults();
-        quizRawScore.getResults();
-
-
+        quizRawScoreGeneral.getResults();
     }
 
     //REQUIRES:

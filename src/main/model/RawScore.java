@@ -1,20 +1,18 @@
 package model;
 
 
+import ui.Quiz;
+
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.io.IOException;
 import java.io.PrintWriter;
 
+public abstract class RawScore extends FileReaderWriter implements Score {
 
-public class RawScore implements Score, FileReaderWriter {
-
-    private ArrayList<Integer> rawScore;
-    private Quiz filledQuiz;
+    protected ArrayList<Integer> rawScore;
+    protected Quiz filledQuiz;
 
     public RawScore(Quiz filledQuiz) {
         rawScore = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0));
@@ -44,6 +42,7 @@ public class RawScore implements Score, FileReaderWriter {
     //REQUIRES: answers are integers from 1-5
     //MODIFIES: this
     //EFFECTS: turns question-answer data into raw scores
+
     @Override
     public void compileScores() {
         this.rawScore = sortAnswers(this.filledQuiz.getQuestions(), this.filledQuiz.getAnswers());
@@ -73,12 +72,9 @@ public class RawScore implements Score, FileReaderWriter {
         System.out.println("Neuroticism: " + this.rawScore.get(4));
     }
 
-    //
-    @Override
-    public List<String> read(String input) throws IOException {
-        return Files.readAllLines(Paths.get(input));
-    }
 
+    //MODIFIES: file with path name output
+    //EFFECTS: adds this.rawScores to the end of writerFile
     @Override
     public void write(List<String> lines, String output) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(output, "UTF-8");
