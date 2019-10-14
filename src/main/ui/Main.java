@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws IOException, CloneNotSupportedException {
+    public static void main(String[] args) throws IOException {
         Question q0 = new Question(0, "I am interested in abstract ideas", false);
         Question q1 = new Question(1, "I am always on time", false);
         Question q2 = new Question(2, "I am not the life of the party", true);

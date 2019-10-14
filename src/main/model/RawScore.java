@@ -42,7 +42,6 @@ public abstract class RawScore extends FileReaderWriter implements Score {
     //REQUIRES: answers are integers from 1-5
     //MODIFIES: this
     //EFFECTS: turns question-answer data into raw scores
-
     @Override
     public void compileScores() {
         this.rawScore = sortAnswers(this.filledQuiz.getQuestions(), this.filledQuiz.getAnswers());
