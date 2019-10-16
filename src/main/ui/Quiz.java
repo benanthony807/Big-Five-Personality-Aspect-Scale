@@ -44,7 +44,11 @@ public class Quiz {
         quizRawScoreRegularCoded.compileScores();
         RawScoreGeneral quizRawScoreGeneral = new RawScoreGeneral(this);
         quizRawScoreGeneral.fillRawScoreGeneral(quizRawScoreRegularCoded, quizRawScoreReverseCoded);
-        quizRawScoreGeneral.write(quizRawScoreGeneral.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
+        try {
+            quizRawScoreGeneral.write(quizRawScoreGeneral.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
+        } catch (IOException e) {
+            System.out.println("Scores could not be stored");
+        }
 //        Percentile quizPercentile = new Percentile(quizRawScore.getRawScore());
 //        quizPercentile.compileScores();
 //        quizPercentile.getResults();

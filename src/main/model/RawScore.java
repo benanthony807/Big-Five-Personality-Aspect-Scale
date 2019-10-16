@@ -76,6 +76,7 @@ public abstract class RawScore extends FileReaderWriter implements Score {
     //EFFECTS: adds this.rawScores to the end of writerFile
     @Override
     public void write(List<String> lines, String output) throws FileNotFoundException, UnsupportedEncodingException {
+//        try {
         PrintWriter writer = new PrintWriter(output, "UTF-8");
         lines.add(this.rawScore.get(0) + "   " + this.rawScore.get(1) + "   " + this.rawScore.get(2) + "   "
                 + this.rawScore.get(3) + "   " + this.rawScore.get(4));
@@ -84,12 +85,16 @@ public abstract class RawScore extends FileReaderWriter implements Score {
         }
         writer.close();
     }
+//        } catch (IOException e) {
+//            System.out.println("file cannot be written");
+//        }
+}
 //
 //    @Override
 //    public ArrayList<String> splitOnSpace(String line) {
 //        String[] splits = line.split("   ");
 //        return new ArrayList<>(Arrays.asList(splits));}
 
-}
+
 
 

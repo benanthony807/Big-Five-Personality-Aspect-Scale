@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.Quiz;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.*;
@@ -101,17 +102,44 @@ public class RawScoreForRegularCodedTest {
     }
 
     @Test
-    public void readTest() throws IOException {
-        List<String> expectedResult = Files.readAllLines(Paths.get("./data/rawscorebank.txt"));
-        assertEquals(expectedResult, testRawScore.read("./data/rawscorebank.txt"));
+    public void readTestNoExceptionExpected() throws IOException {
+        try {
+            List<String> expectedResult = Files.readAllLines(Paths.get("./data/rawscorebank.txt"));
+            assertEquals(expectedResult, testRawScore.read("./data/rawscorebank.txt"));
+        } catch (IOException e) {
+            fail();
+        }
     }
 
     @Test
-    public void writeTest() throws IOException {
-        List<String> input = Files.readAllLines(Paths.get("./data/testrawscorebankinput.txt"));
-        testRawScore.write(input, "./data/testrawscorebankoutput.txt");
-        assertEquals(Arrays.asList("5   1   1   4   2","0   0   0   0   0"), testRawScore.read("./data/testrawscorebankoutput.txt"));
+    public void readTestIOExceptionExpected() throws IOException {
+        try {
+            testRawScore.read("./data/nonexistentfile.txt");
+            fail();
+        } catch (IOException e) {
 
+        }
     }
 
+    @Test
+    public void writeTestNoExceptionExpected() throws IOException {
+        try {
+            List<String> input = Files.readAllLines(Paths.get("./data/testrawscorebankinput.txt"));
+            testRawScore.write(input, "./data/testrawscorebankoutput.txt");
+            assertEquals(Arrays.asList("5   1   1   4   2", "0   0   0   0   0"), testRawScore.read("./data/testrawscorebankoutput.txt"));
+        } catch (IOException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void writeTestIOExceptionExpected() throws IOException {
+        try {
+            List<String> input = Files.readAllLines(Paths.get("./data/testrawscorebankinput.txt"));
+            testRawScore.write(input, "");
+            fail();
+        } catch (IOException e) {
+
+        }
+    }
 }

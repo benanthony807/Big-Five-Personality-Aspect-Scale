@@ -11,7 +11,12 @@ public abstract class FileReaderWriter {
 
     //EFFECTS: reads (loads) data from a txt file, returns the data as a list of String
     public List<String> read(String input) throws IOException {
+//        try {
         return Files.readAllLines(Paths.get(input));
+//        } catch (IOException e) {
+//            System.out.println("file cannot be read");
+//            return null;
+//        }
     }
 
     //MODIFIES: writerFile.txt
