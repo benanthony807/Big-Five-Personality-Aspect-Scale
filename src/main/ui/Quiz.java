@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 public class Quiz {
 
-    private ArrayList<Question> questions;
+    private ArrayList<Question> questions; //make these things that work reflexively
+    // that way when u add shit to questions a 0 will automatically be added to answers, don't need to just
+    // have answers be written in somewhere as a fixed length
     private ArrayList<Integer> answers;
 
     //EFFECTS: constructs a Quiz with questions and past scores but no answers
@@ -32,27 +34,27 @@ public class Quiz {
         return answers;
     }
 
+    public void addQuestion(Question q) {
+        if (!questions.contains(q)) {
+            questions.add(q);
+            answers.add(0);
+        }
+    }
+
     //MODIFIES: this
     //EFFECTS: runs the quiz setup, if that passes runs the actual quiz, then runs a method to deal
     //         with scores and returns percentile scores
-    public void run() throws IOException {
+    public void run() {
         setUpQuiz();
         runQuiz();
-        RawScoreForRegularCoded quizRawScoreRegularCoded = new RawScoreForRegularCoded(new Quiz(this));
-        RawScoreForReverseCoded quizRawScoreReverseCoded = new RawScoreForReverseCoded(new Quiz(this));
-        quizRawScoreReverseCoded.compileScores();
-        quizRawScoreRegularCoded.compileScores();
-        RawScoreGeneral quizRawScoreGeneral = new RawScoreGeneral(this);
-        quizRawScoreGeneral.fillRawScoreGeneral(quizRawScoreRegularCoded, quizRawScoreReverseCoded);
+        RawScore rawScore = new RawScore(this);
+        rawScore.compileScores();
         try {
-            quizRawScoreGeneral.write(quizRawScoreGeneral.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
+            rawScore.write(rawScore.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
         } catch (IOException e) {
             System.out.println("Scores could not be stored");
         }
-//        Percentile quizPercentile = new Percentile(quizRawScore.getRawScore());
-//        quizPercentile.compileScores();
-//        quizPercentile.getResults();
-        quizRawScoreGeneral.getResults();
+        rawScore.getResults();
     }
 
     //EFFECTS: welcomes users, asks them if they're ready to start quiz, if yes starts quiz, if not
@@ -105,6 +107,52 @@ public class Quiz {
             }
         }
         System.out.println("Quiz complete.");
+    }
+
+
+    //REQUIRES: answers are integers from 1-5
+    //MODIFIES: this
+    //EFFECTS: filters out all reverse-coded questions/answers,then turns question-answer data into raw scores
+    public void filterRegularCoded() {
+        for (int i = 0; i < this.getQuestions().size(); i++) {
+            if (this.getQuestions().get(i).getIsReverseCoded()) {
+                this.getQuestions().remove(i);
+                this.getAnswers().remove(i);
+                i--;
+            }
+        }
+    }
+
+    //REQUIRES: answers are integers from 1-5
+    //MODIFIES: this
+    //EFFECTS: filters out all regular-coded questions/answers, unreverses answers,
+    //          then turns question-answer data into raw scores
+    public void filterReverseCoded() {
+        for (int i = 0; i < this.getQuestions().size(); i++) {
+            if (!this.getQuestions().get(i).getIsReverseCoded()) {
+                this.getQuestions().remove(i);
+                this.getAnswers().remove(i);
+                i--;
+            }
+        }
+        unreverseAnswers();
+    }
+
+    //REQUIRES: rawScores are integers between 1 and 5
+    //MODIFIES: this
+    //EFFECTS: flips reverse coded answers so they can be interpreted as answers to regular-coded questions
+    public void unreverseAnswers() {
+        for (int i = 0; i < this.getAnswers().size(); i++) {
+            if (this.getAnswers().get(i) == 1) {
+                this.getAnswers().set(i, 5);
+            } else if (this.getAnswers().get(i) == 2) {
+                this.getAnswers().set(i, 4);
+            } else if (this.getAnswers().get(i) == 4) {
+                this.getAnswers().set(i, 2);
+            } else if (this.getAnswers().get(i) == 5) {
+                this.getAnswers().set(i, 1);
+            }
+        }
     }
 }
 

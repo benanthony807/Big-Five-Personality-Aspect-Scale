@@ -23,11 +23,25 @@ public class QuestionTest {
         assertEquals("I am the life of the party", testQ1.getQuestion());
 
         testQ1.setCategory(0);
+        assertTrue(testQ1.getAnswer().getQuestion().equals(testQ1));
         testQ1.setQuestion("New question");
+        assertTrue(testQ1.getAnswer().getQuestion().equals(testQ1));
         assertEquals(0, testQ1.getCategory());
         assertEquals("New question", testQ1.getQuestion());
         testQ1.setIsReverseCoded(true);
         assertTrue(testQ1.getIsReverseCoded());
+        assertTrue(testQ1.getAnswer().getQuestion().equals(testQ1));
+
+        Answer a = new Answer(testQ1);
+        assertTrue(testQ1.getAnswer().equals(a));
     }
+
+    @Test
+    void testSetAnswer() {
+        testQ1.setAnswer(2);
+        assertEquals(2, testQ1.getAnswer().getAnswer());
+    }
+
+
 
 }

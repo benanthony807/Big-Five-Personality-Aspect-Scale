@@ -18,6 +18,7 @@ public abstract class FileReaderWriter {
 //            return null;
 //        }
     }
+    // both taken from Load/save example given in Deliverable 4 prompt
 
     //MODIFIES: writerFile.txt
     //EFFECTS: adds this.rawScores to the end of writerFile

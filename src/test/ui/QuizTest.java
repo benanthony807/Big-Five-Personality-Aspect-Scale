@@ -2,11 +2,10 @@ package ui;
 
 import model.Question;
 import model.RawScore;
-import model.RawScoreForRegularCoded;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.Quiz;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -27,14 +26,14 @@ public class QuizTest {
 
     @BeforeEach
     public void runBefore() {
-        testQ1 = new Question(0, "test question1", false);
+        testQ1 = new Question(0, "test question1", true);
         testQ2 = new Question(4, "test question2", false);
-        testQ3 = new Question(0, "test question3", false);
+        testQ3 = new Question(0, "test question3", true);
         testQuestions = new ArrayList<Question>(Arrays.asList(testQ1, testQ2, testQ3));
         testAnswers = new ArrayList<Integer>(Arrays.asList(1, 2, 5));
         testQuiz = new Quiz(testQuestions, testAnswers);
 
-        testRawScore = new RawScoreForRegularCoded(testQuiz);
+        testRawScore = new RawScore(testQuiz);
 
     }
 
@@ -64,6 +63,39 @@ public class QuizTest {
         assertEquals("Quiz beginning\n", outContent.toString());
     }
 
+    @Test
+    void testFilterRegularCoded() {
+        testQuiz.filterRegularCoded();
+        assertEquals(1, testQuiz.getQuestions().size());
+        assertTrue(testQuiz.getQuestions().contains(testQ2));
+        assertEquals(1, testQuiz.getAnswers().size());
+        assertTrue(testQuiz.getAnswers().contains(2));
+
+    }
+
+    @Test
+    void testFilterReverseCoded() {
+        testQuiz.filterReverseCoded();
+        assertEquals(2, testQuiz.getQuestions().size());
+        assertTrue(testQuiz.getQuestions().contains(testQ1));
+        assertTrue(testQuiz.getQuestions().contains(testQ3));
+
+        assertEquals(2, testQuiz.getAnswers().size());
+        assertTrue(testQuiz.getAnswers().contains(1));
+        assertTrue(testQuiz.getAnswers().contains(5));
+    }
+
+    @Test
+    public void testUnreverseRawScores() {
+        ArrayList<Integer> answers = new ArrayList<>(Arrays.asList(1,2,3));
+        ArrayList<Question> questions = new ArrayList<>(Arrays.asList(testQ1, testQ2, testQ3));
+        Quiz quiz = new Quiz(questions, answers);
+
+        quiz.unreverseAnswers();
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(5,4,3));
+        assertEquals(expected, quiz.getAnswers());
+    }
+
 
 
 //    @Rule
@@ -75,27 +107,5 @@ public class QuizTest {
 //        exit.expectSystemExit();
 //        testQuiz.checkIfReady("no");
 //    }
-
-
-
-//
-//    @Test
-//    public void testRun() {
-//
-//
-//    }
-//
-//    // method doesn't need to be tested bc takes user input
-//    @Test
-//    public void testSetUpQuiz() {
-//
-//    }
-//
-//
-//    @Test
-//    public void testRunQuiz() {
-//
-//    }
-
 
 }

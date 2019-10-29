@@ -1,7 +1,6 @@
 package ui;
 
 import model.Question;
-import model.RawScore;
 
 import java.io.IOException;
 import java.util.ArrayList;
