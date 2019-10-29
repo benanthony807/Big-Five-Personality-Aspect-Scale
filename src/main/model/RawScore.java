@@ -59,14 +59,14 @@ public class RawScore extends FileReaderWriter implements Score {
     //EFFECTS: sorts and sums answers by category
     public HashMap<Integer, Integer> sortAnswers(ArrayList<Question> questions, ArrayList<Integer> answers) {
         ArrayList<Integer> summedAnswers = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0));
+        HashMap<Integer, Integer> actualAnswers = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
+            actualAnswers.put(i, 0);
+        }
         for (int i = 0; i < questions.size(); i++) {
             int category = questions.get(i).getCategory();
-            int updatedRawScore = answers.get(i) + summedAnswers.get(category);
-            summedAnswers.set(category, updatedRawScore);
-        }
-        HashMap<Integer, Integer> actualAnswers = new HashMap<>();
-        for (int i = 0; i < summedAnswers.size(); i++) {
-            actualAnswers.put(i, summedAnswers.get(i));
+            int updatedScore = answers.get(i) + actualAnswers.get(category);
+            actualAnswers.replace(category, updatedScore);
         }
         return actualAnswers;
     }
