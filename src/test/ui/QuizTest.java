@@ -5,7 +5,7 @@ import model.RawScore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -41,7 +41,7 @@ public class QuizTest {
     public void testConstructor() {
         assertEquals(testQuestions, testQuiz.getQuestions());
 
-        ArrayList<Integer> expectedAnswers = new ArrayList<>(Arrays.asList(0,0,0,0,0));
+        ArrayList<Integer> expectedAnswers = new ArrayList<>(Arrays.asList(1,2,5));
         assertEquals((expectedAnswers), testQuiz.getAnswers());
 
         testQuestions.set(2, testQ1);
