@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Question q0 = new Question(0, "I am interested in abstract ideas", false);
         Question q1 = new Question(1, "I am always on time", false);
         Question q2 = new Question(2, "I am not the life of the party", true);
@@ -17,7 +17,8 @@ public class Main {
 
         ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
 
-        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions, new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0)));
+//      Quiz bigFiveQuiz = new Quiz(bigFiveQuestions, new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0)));
+        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
         QuizRunner quizRunner = new QuizRunner();
         quizRunner.run(bigFiveQuiz);
     }

@@ -8,9 +8,17 @@ public class Quiz {
     private ArrayList<Integer> answers;
 
     //EFFECTS: constructs a Quiz with questions and past scores but no answers
-    public Quiz(ArrayList<Question> questions, ArrayList<Integer> answers) {
+    public Quiz(ArrayList<Question> questions) {
         this.questions = questions;
-        this.answers = answers;
+        this.answers = generateAnswers();
+    }
+
+    public ArrayList<Integer> generateAnswers() {
+        ArrayList<Integer> answers = new ArrayList<>();
+        for (Question question: questions) {
+            answers.add(0);
+        }
+        return answers;
     }
 
     public Quiz(Quiz another) {
@@ -25,6 +33,12 @@ public class Quiz {
 
     public ArrayList<Integer> getAnswers() {
         return answers;
+    }
+
+    public void setAnswers(ArrayList<Integer> answers) {
+        for (int i = 0; i < answers.size(); i++) {
+            this.answers.set(i, answers.get(i));
+        }
     }
 
 //    //MODIFIES: this

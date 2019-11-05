@@ -37,7 +37,8 @@ public class RawScoreTest {
         testQuestions = new ArrayList<Question>(Arrays.asList(testQ1, testQ2, testQ3, testQ4));
         testAnswers = new ArrayList<Integer>(Arrays.asList(1, 2, 5, 2));
 
-        testQuiz = new Quiz(testQuestions, testAnswers);
+        testQuiz = new Quiz(testQuestions);
+        testQuiz.setAnswers(testAnswers);
 
         testRawScore = new RawScore(testQuiz);
 
