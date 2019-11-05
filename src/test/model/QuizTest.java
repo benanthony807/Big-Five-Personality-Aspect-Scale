@@ -1,6 +1,7 @@
-package ui;
+package model;
 
 import model.Question;
+import model.Quiz;
 import model.RawScore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,17 +52,17 @@ public class QuizTest {
         assertEquals(1, testAnswers.get(0));
     }
 
-    @Test
-    public void testCheckIfReadyUserReady() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        // code taken from
-        // https://stackoverflow.com/questions/32241057/how-to-test-a-print-method-in-java-using-junit
-
-        testQuiz.checkIfReady("yes");
-
-        assertEquals("Quiz beginning\n", outContent.toString());
-    }
+//    @Test
+//    public void testCheckIfReadyUserReady() {
+//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(outContent));
+//        // code taken from
+//        // https://stackoverflow.com/questions/32241057/how-to-test-a-print-method-in-java-using-junit
+//
+//        testQuiz.checkIfReady("yes");
+//
+//        assertEquals("Quiz beginning\n", outContent.toString());
+//    }
 
     @Test
     void testFilterRegularCoded() {

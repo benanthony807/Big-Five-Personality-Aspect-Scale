@@ -1,11 +1,8 @@
 package model;
 
 
-import ui.Quiz;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.io.PrintWriter;
@@ -13,17 +10,27 @@ import java.io.PrintWriter;
 public class RawScore extends FileReaderWriter implements Score {
 
     protected HashMap<Integer, Integer> rawScore;
-    protected Quiz regularCoded;
-    protected Quiz reverseCoded;
+    protected Quiz quiz;
+//    protected Quiz reverseCoded;
 
-    public RawScore(Quiz regularCoded) {
+    public RawScore(Quiz uncoded) {
         rawScore = new HashMap<>();
-        this.regularCoded = new Quiz(regularCoded);
-        this.regularCoded.filterRegularCoded();
-        this.reverseCoded = new Quiz(regularCoded);
+        quiz = code(uncoded);
+//        reverseCoded = new Quiz(uncoded);
+//        regularCoded.filterRegularCoded();
+//        reverseCoded.filterReverseCoded();
+//        regularCoded.getQuestions().addAll(reverseCoded.getQuestions());
+//        regularCoded.getAnswers().addAll(reverseCoded.getAnswers());
+    }
+
+    public Quiz code(Quiz uncoded) {
+        Quiz regularCoded = new Quiz(uncoded);
+        Quiz reverseCoded = new Quiz(uncoded);
+        regularCoded.filterRegularCoded();
         reverseCoded.filterReverseCoded();
-        this.regularCoded.getQuestions().addAll(reverseCoded.getQuestions());
-        this.regularCoded.getAnswers().addAll(reverseCoded.getAnswers());
+        regularCoded.getQuestions().addAll(reverseCoded.getQuestions());
+        regularCoded.getAnswers().addAll(reverseCoded.getAnswers());
+        return regularCoded;
     }
 
 //    getters:
@@ -32,7 +39,7 @@ public class RawScore extends FileReaderWriter implements Score {
     }
 
     public Quiz getQuiz() {
-        return regularCoded;
+        return quiz;
     }
 
     public void setRawScore(ArrayList<Integer> scores) {
@@ -51,46 +58,43 @@ public class RawScore extends FileReaderWriter implements Score {
     //EFFECTS: turns question-answer data into raw scores
     @Override
     public void compileScores() {
-        this.rawScore = sortAnswers(this.regularCoded.getQuestions(), this.regularCoded.getAnswers());
+        this.rawScore = sortAnswers(this.quiz.getQuestions(), this.quiz.getAnswers());
     }
 
     //REQUIRES: every question has an answer
     //MODIFIES:
     //EFFECTS: sorts and sums answers by category
     public HashMap<Integer, Integer> sortAnswers(ArrayList<Question> questions, ArrayList<Integer> answers) {
-        ArrayList<Integer> summedAnswers = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0));
-        HashMap<Integer, Integer> actualAnswers = new HashMap<>();
+        HashMap<Integer, Integer> sortedAndSummed = new HashMap<>();
         for (int i = 0; i < 5; i++) {
-            actualAnswers.put(i, 0);
+            sortedAndSummed.put(i, 0);
         }
         for (int i = 0; i < questions.size(); i++) {
             int category = questions.get(i).getCategory();
-            int updatedScore = answers.get(i) + actualAnswers.get(category);
-            actualAnswers.replace(category, updatedScore);
+            int updatedScore = answers.get(i) + sortedAndSummed.get(category);
+            sortedAndSummed.replace(category, updatedScore);
         }
-        return actualAnswers;
+        return sortedAndSummed;
     }
 
     //EFFECTS: prints out results of quiz (in raw scores)
     @Override
     public void getResults() {
         System.out.println("Your results (in raw scores):");
-        System.out.println("Openness: " + this.rawScore.get(0));
-        System.out.println("Conscientiousness: " + this.rawScore.get(1));
-        System.out.println("Extroversion: " + this.rawScore.get(2));
-        System.out.println("Agreeableness: " + this.rawScore.get(3));
-        System.out.println("Neuroticism: " + this.rawScore.get(4));
+        System.out.println("Openness: " + rawScore.get(0));
+        System.out.println("Conscientiousness: " + rawScore.get(1));
+        System.out.println("Extroversion: " + rawScore.get(2));
+        System.out.println("Agreeableness: " + rawScore.get(3));
+        System.out.println("Neuroticism: " + rawScore.get(4));
     }
-
 
     //MODIFIES: file with path name output
     //EFFECTS: adds this.rawScores to the end of writerFile
     @Override
     public void write(List<String> lines, String output) throws FileNotFoundException, UnsupportedEncodingException {
-//        try {
         PrintWriter writer = new PrintWriter(output, "UTF-8");
-        lines.add(this.rawScore.get(0) + "   " + this.rawScore.get(1) + "   " + this.rawScore.get(2) + "   "
-                + this.rawScore.get(3) + "   " + this.rawScore.get(4));
+        lines.add(rawScore.get(0) + "   " + rawScore.get(1) + "   " + rawScore.get(2) + "   "
+                + rawScore.get(3) + "   " + rawScore.get(4));
         for (String line : lines) {
             writer.println(line);
         }
