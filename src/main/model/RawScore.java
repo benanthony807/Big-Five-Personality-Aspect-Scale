@@ -1,6 +1,10 @@
 package model;
 
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import observer.QuizTaker;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,26 +15,11 @@ public class RawScore extends FileReaderWriter implements Score {
 
     protected HashMap<Integer, Integer> rawScore;
     protected Quiz quiz;
-//    protected Quiz reverseCoded;
 
     public RawScore(Quiz uncoded) {
         rawScore = new HashMap<>();
         quiz = code(uncoded);
-//        reverseCoded = new Quiz(uncoded);
-//        regularCoded.filterRegularCoded();
-//        reverseCoded.filterReverseCoded();
-//        regularCoded.getQuestions().addAll(reverseCoded.getQuestions());
-//        regularCoded.getAnswers().addAll(reverseCoded.getAnswers());
-    }
-
-    public Quiz code(Quiz uncoded) {
-        Quiz regularCoded = new Quiz(uncoded);
-        Quiz reverseCoded = new Quiz(uncoded);
-        regularCoded.filterRegularCoded();
-        reverseCoded.filterReverseCoded();
-        regularCoded.getQuestions().addAll(reverseCoded.getQuestions());
-        regularCoded.getAnswers().addAll(reverseCoded.getAnswers());
-        return regularCoded;
+        addObserver(new QuizTaker());
     }
 
 //    getters:
@@ -59,6 +48,8 @@ public class RawScore extends FileReaderWriter implements Score {
     @Override
     public void compileScores() {
         this.rawScore = sortAnswers(this.quiz.getQuestions(), this.quiz.getAnswers());
+        setChanged();
+        notifyObservers(rawScore);
     }
 
     //REQUIRES: every question has an answer
@@ -100,4 +91,18 @@ public class RawScore extends FileReaderWriter implements Score {
         }
         writer.close();
     }
+
+    //MODIFIES: regularCoded
+    //EFFECTS: splits quiz into regular and reverse coded questions, unreverses the reverse coded questions,
+    //         recombines and returns the whole quiz regular coded
+    public Quiz code(Quiz uncoded) {
+        Quiz regularCoded = new Quiz(uncoded);
+        Quiz reverseCoded = new Quiz(uncoded);
+        regularCoded.filterRegularCoded();
+        reverseCoded.filterReverseCoded();
+        regularCoded.getQuestions().addAll(reverseCoded.getQuestions());
+        regularCoded.getAnswers().addAll(reverseCoded.getAnswers());
+        return regularCoded;
+    }
+
 }
