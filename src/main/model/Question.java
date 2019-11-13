@@ -13,7 +13,7 @@ public class Question {
         this.category = category;
         this.question = question;
         this.isReverseCoded = isReverseCoded;
-        this.answer = new Answer(this);
+//        this.answer = new Answer(this);
     }
 
     //getters:

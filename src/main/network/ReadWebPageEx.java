@@ -15,7 +15,7 @@ public class ReadWebPageEx {
         BufferedReader br = null;
 
         try {
-            String weatherQuery = "https://api.openweathermap.org/data/2.5/weather?id=6173331&APPID={c29cbb4e788d9447022e0ed27cf8aaa5}";
+            String weatherQuery = "https://api.openweathermap.org/data/2.5/weather?id=6173331&APPID=c29cbb4e788d9447022e0ed27cf8aaa5";
 
             String theURL = weatherQuery;
             URL url = new URL(theURL);
