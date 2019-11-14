@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Observable;
 
 public class QuizTaker implements java.util.Observer {
+
     @Override
     public void update(Observable o, Object arg) {
         HashMap<Integer, Integer> rawScore = (HashMap<Integer, Integer>) arg;
