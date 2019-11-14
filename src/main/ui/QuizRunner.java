@@ -22,7 +22,7 @@ public class QuizRunner {
         } catch (IOException e) {
             System.out.println("Scores could not be stored");
         }
-//        rawScore.getResults();
+        rawScore.getResults();
     }
 
     //EFFECTS: welcomes users, asks them if they're ready to start quiz, if yes starts quiz, if not

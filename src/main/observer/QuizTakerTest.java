@@ -39,8 +39,9 @@ public class QuizTakerTest {
         // https://stackoverflow.com/questions/32241057/how-to-test-a-print-method-in-java-using-junit
 
         quizTaker.update(rawScore, integerHashMap);
-        assertEquals("Your results (in raw scores):\nOpenness: null\nConscientiousness: "
-                +
-                "null\nExtroversion: null\nAgreeableness: null\nNeuroticism: null\n", outContent.toString());
+        assertEquals("nice job quiz done\n", outContent.toString());
+//        assertEquals("Your results (in raw scores):\nOpenness: null\nConscientiousness: "
+//                +
+//                "null\nExtroversion: null\nAgreeableness: null\nNeuroticism: null\n", outContent.toString());
     }
 }
