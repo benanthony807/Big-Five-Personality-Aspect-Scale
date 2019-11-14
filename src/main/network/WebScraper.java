@@ -21,25 +21,10 @@ public class WebScraper {
         return filterToSize(size);
     }
 
-    private ArrayList<Question> filterToSize(int size) {
-        ArrayList<Question> newList = new ArrayList<>();
-        while (newList.size() < size) {
-//            random functionality taken from https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
-            Random rand = new Random();
-            Question question = questions.get(rand.nextInt(questions.size()));
-            if (!newList.contains(question)) {
-                newList.add(question);
-            }
-        }
-        return newList;
-    }
-
-
     public void scrapeQuestions() throws IOException {
 //        taken from https://stackoverflow.com/questions/31360275/parsing-extracting-a-html-table-website-in-java
         org.jsoup.nodes.Document doc = Jsoup.connect("https://ipip.ori.org/newBigFive5broadKey.htm").get();
         org.jsoup.select.Elements rows = doc.select("tr");
-
         parseQuestion(rows);
     }
 
@@ -64,18 +49,6 @@ public class WebScraper {
         }
     }
 
-    private boolean keyedCheck(Element column) {
-        if (column.text().contains("+ keyed")) {
-            keyed = false;
-            return true;
-        } else if (column.text().contains("– keyed")) {
-            keyed = true;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean categoryCheck(Element column) {
         if (column.text().contains("Extraversion")) {
             category = 2;
@@ -96,6 +69,18 @@ public class WebScraper {
             return false;
         }
 
+    }
+
+    private boolean keyedCheck(Element column) {
+        if (column.text().contains("+ keyed")) {
+            keyed = false;
+            return true;
+        } else if (column.text().contains("– keyed")) {
+            keyed = true;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean skippable(Element column) {
@@ -129,6 +114,19 @@ public class WebScraper {
                 }
             }
         }
+    }
+
+    private ArrayList<Question> filterToSize(int size) {
+        ArrayList<Question> newList = new ArrayList<>();
+        while (newList.size() < size) {
+//            random functionality taken from https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
+            Random rand = new Random();
+            Question question = questions.get(rand.nextInt(questions.size()));
+            if (!newList.contains(question)) {
+                newList.add(question);
+            }
+        }
+        return newList;
     }
 }
 
