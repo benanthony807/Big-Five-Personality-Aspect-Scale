@@ -7,6 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class WebScraper {
 
@@ -17,15 +18,22 @@ public class WebScraper {
     public ArrayList<Question> createQuestionBank(int size) throws IOException {
         scrapeQuestions();
         cleanQuestions();
-        filterToSize(size);
-        return questions;
-        }
-
-    private void filterToSize(int size) {
-
+        return filterToSize(size);
     }
 
-}
+    private ArrayList<Question> filterToSize(int size) {
+        ArrayList<Question> newList = new ArrayList<>();
+        while (newList.size() < size) {
+//            random functionality taken from https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
+            Random rand = new Random();
+            Question question = questions.get(rand.nextInt(questions.size()));
+            if (!newList.contains(question)) {
+                newList.add(question);
+            }
+        }
+        return newList;
+    }
+
 
     public void scrapeQuestions() throws IOException {
 //        taken from https://stackoverflow.com/questions/31360275/parsing-extracting-a-html-table-website-in-java
