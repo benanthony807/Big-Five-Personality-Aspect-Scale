@@ -15,7 +15,7 @@ public class Quiz {
 
     //MODIFIES: answers
     //EFFECTS: returns a list of blank answers, one for each question
-    public ArrayList<Integer> generateAnswers() {
+    private ArrayList<Integer> generateAnswers() {
         ArrayList<Integer> answers = new ArrayList<>();
         for (Question question: questions) {
             answers.add(0);
@@ -24,7 +24,7 @@ public class Quiz {
     }
 
     //EFFECTS: constructs a duplicate quiz of another
-    public Quiz(Quiz another) {
+    Quiz(Quiz another) {
         this.questions = new ArrayList<>(another.questions);
         this.answers = new ArrayList<>(another.answers);
     }
@@ -39,7 +39,7 @@ public class Quiz {
     }
 
     //setters:
-    public void setAnswers(ArrayList<Integer> answers) {
+    void setAnswers(ArrayList<Integer> answers) {
         for (int i = 0; i < answers.size(); i++) {
             this.answers.set(i, answers.get(i));
         }
@@ -48,7 +48,7 @@ public class Quiz {
     //REQUIRES: answers are integers from 1-5
     //MODIFIES: this
     //EFFECTS: filters out all reverse-coded questions/answers, then turns question-answer data into raw scores
-    public void filterRegularCoded() {
+    void filterRegularCoded() {
         for (int i = 0; i < questions.size(); i++) {
             if (questions.get(i).getIsReverseCoded()) {
                 questions.remove(i);
@@ -62,7 +62,7 @@ public class Quiz {
     //MODIFIES: this
     //EFFECTS: filters out all regular-coded questions/answers, unreverses answers,
     //          then turns question-answer data into raw scores
-    public void filterReverseCoded() {
+    void filterReverseCoded() {
         for (int i = 0; i < questions.size(); i++) {
             if (!questions.get(i).getIsReverseCoded()) {
                 questions.remove(i);
@@ -76,7 +76,7 @@ public class Quiz {
     //REQUIRES: rawScores are integers between 1 and 5
     //MODIFIES: this
     //EFFECTS: flips reverse coded answers so they can be interpreted as answers to regular-coded questions
-    public void unreverseAnswers() {
+    void unreverseAnswers() {
         for (int i = 0; i < this.getAnswers().size(); i++) {
             if (answers.get(i) == 1) {
                 answers.set(i, 5);

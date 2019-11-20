@@ -21,7 +21,9 @@ public class Main {
 //        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
 
         Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
-        QuizRunner quizRunner = new QuizRunner();
-        quizRunner.run(bigFiveQuiz);
+        GUI gui = new GUI(bigFiveQuiz);
+//        gui.run();
+//        QuizRunner quizRunner = new QuizRunner();
+//        quizRunner.run(bigFiveQuiz);
     }
 }
