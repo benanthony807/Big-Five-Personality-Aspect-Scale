@@ -8,6 +8,8 @@ public class Question {
     private String question;
     private Boolean isReverseCoded;
 
+    //EFFECTS: creates a Question with category, question, and isReverseCoded set to true if the question is reverse
+    //         coded, false ow
     public Question(int category, String question, Boolean isReverseCoded) {
         this.category = category;
         this.question = question;

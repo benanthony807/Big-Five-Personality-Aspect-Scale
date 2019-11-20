@@ -13,6 +13,8 @@ public class Quiz {
         this.answers = generateAnswers();
     }
 
+    //MODIFIES: answers
+    //EFFECTS: returns a list of blank answers, one for each question
     public ArrayList<Integer> generateAnswers() {
         ArrayList<Integer> answers = new ArrayList<>();
         for (Question question: questions) {
@@ -21,6 +23,7 @@ public class Quiz {
         return answers;
     }
 
+    //EFFECTS: constructs a duplicate quiz of another
     public Quiz(Quiz another) {
         this.questions = new ArrayList<>(another.questions);
         this.answers = new ArrayList<>(another.answers);
@@ -35,6 +38,7 @@ public class Quiz {
         return answers;
     }
 
+    //setters:
     public void setAnswers(ArrayList<Integer> answers) {
         for (int i = 0; i < answers.size(); i++) {
             this.answers.set(i, answers.get(i));

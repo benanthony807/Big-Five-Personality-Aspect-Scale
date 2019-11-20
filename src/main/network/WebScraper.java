@@ -15,13 +15,16 @@ public class WebScraper {
     boolean keyed;
     ArrayList<Question> questions = new ArrayList<Question>();
 
+    //REQUIRES:
+    //MODIFIES: this
+    //EFFECTS: pulls questions from a website, returns a random list of Question with size elements
     public ArrayList<Question> createQuestionBank(int size) throws IOException {
         scrapeQuestions();
         cleanQuestions();
         return filterToSize(size);
     }
 
-    public void scrapeQuestions() throws IOException {
+    private void scrapeQuestions() throws IOException {
 //        taken from https://stackoverflow.com/questions/31360275/parsing-extracting-a-html-table-website-in-java
         org.jsoup.nodes.Document doc = Jsoup.connect("https://ipip.ori.org/newBigFive5broadKey.htm").get();
         org.jsoup.select.Elements rows = doc.select("tr");
@@ -49,7 +52,7 @@ public class WebScraper {
         }
     }
 
-    public boolean categoryCheck(Element column) {
+    private boolean categoryCheck(Element column) {
         if (column.text().contains("Extraversion")) {
             category = 2;
             return true;
@@ -83,14 +86,14 @@ public class WebScraper {
         }
     }
 
-    public boolean skippable(Element column) {
+    private boolean skippable(Element column) {
         return (column.text().contains("Alpha"))
                 ||
                 (column.text().contains("&nbsp;"));
 
     }
 
-    public void cleanQuestions() {
+    private void cleanQuestions() {
         // from https://www.geeksforgeeks.org/how-to-remove-duplicates-from-arraylist-in-java/
         ArrayList<Question> newList = new ArrayList<>();
         for (Question question : questions) {
