@@ -100,7 +100,8 @@ public class WebScraper {
             if (question.getQuestion().equals("")) {
                 continue;
             } else if (!newList.contains(question)) {
-                newList.add(question);
+                newList.add(new Question(question.getCategory(), "I " + question.getQuestion().toLowerCase(),
+                        question.getIsReverseCoded()));
             }
         }
         questions = newList;
