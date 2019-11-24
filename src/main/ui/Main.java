@@ -10,15 +10,15 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        Question q0 = new Question(0, "I am interested in abstract ideas", false);
-//        Question q1 = new Question(1, "I am always on time", false);
-//        Question q2 = new Question(2, "I am not the life of the party", true);
-//        Question q3 = new Question(3, "I like to please others", false);
-//        Question q4 = new Question(4, "I am fearful of the future", false);
-//
-        WebScraper webScraper = new WebScraper();
-        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(5);
-//        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
+        Question q0 = new Question(0, "I am interested in abstract ideas", false);
+        Question q1 = new Question(1, "I am always on time", false);
+        Question q2 = new Question(2, "I am not the life of the party", true);
+        Question q3 = new Question(3, "I like to please others", false);
+        Question q4 = new Question(4, "I am fearful of the future", false);
+
+//        WebScraper webScraper = new WebScraper();
+//        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(5);
+        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
 
         Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
         GUI gui = new GUI(bigFiveQuiz);
