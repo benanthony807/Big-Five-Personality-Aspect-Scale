@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 
 public class RawScore extends FileReaderWriter implements Score {
 
-    protected HashMap<Integer, Integer> rawScore;
+    private HashMap<Integer, Integer> rawScore;
     protected Quiz quiz;
 
     public RawScore(Quiz uncoded) {
@@ -55,7 +55,7 @@ public class RawScore extends FileReaderWriter implements Score {
     //REQUIRES: every question has an answer
     //MODIFIES:
     //EFFECTS: sorts and sums answers by category
-    public HashMap<Integer, Integer> sortAnswers(ArrayList<Question> questions, ArrayList<Integer> answers) {
+    HashMap<Integer, Integer> sortAnswers(ArrayList<Question> questions, ArrayList<Integer> answers) {
         HashMap<Integer, Integer> sortedAndSummed = new HashMap<>();
         for (int i = 0; i < 5; i++) {
             sortedAndSummed.put(i, 0);
@@ -95,7 +95,7 @@ public class RawScore extends FileReaderWriter implements Score {
     //MODIFIES: regularCoded
     //EFFECTS: splits quiz into regular and reverse coded questions, unreverses the reverse coded questions,
     //         recombines and returns the whole quiz regular coded
-    public Quiz code(Quiz uncoded) {
+    private Quiz code(Quiz uncoded) {
         Quiz regularCoded = new Quiz(uncoded);
         Quiz reverseCoded = new Quiz(uncoded);
         regularCoded.filterRegularCoded();
