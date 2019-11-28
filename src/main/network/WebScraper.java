@@ -41,7 +41,6 @@ public class WebScraper {
                     break;
                 }
                 if (keyedCheck(column)) {
-                    j += 1;
                     continue;
                 }
                 if (skippable(column)) {
@@ -100,11 +99,13 @@ public class WebScraper {
             if (question.getQuestion().equals("")) {
                 continue;
             } else if (!newList.contains(question)) {
-                newList.add(new Question(question.getCategory(), "I " + question.getQuestion().toLowerCase(),
-                        question.getIsReverseCoded()));
+                newList.add(question);
             }
         }
         questions = newList;
+        for (Question question: questions) {
+            question.setQuestion("I " + question.getQuestion().toLowerCase());
+        }
         flipNeuroticism();
     }
 
@@ -124,14 +125,20 @@ public class WebScraper {
         ArrayList<Question> newList = new ArrayList<>();
         while (newList.size() < size) {
 //            random functionality taken from https://www.geeksforgeeks.org/randomly-select-items-from-a-list-in-java/
-            Random rand = new Random();
-            Question question = questions.get(rand.nextInt(questions.size()));
-            if (!newList.contains(question)) {
-                newList.add(question);
+            for (int i = 0; i < 5; i++) {
+                Random rand = new Random();
+                Question question = questions.get(rand.nextInt(questions.size()));
+                if (!newList.contains(question) && question.getCategory() == i) {
+                    newList.add(question);
+                } else {
+                    i--;
+                }
             }
         }
         return newList;
     }
+
+
 }
 
 

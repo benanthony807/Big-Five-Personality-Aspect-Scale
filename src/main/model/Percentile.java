@@ -65,6 +65,7 @@ public class Percentile extends FileReader implements Score {
     @Override
     public void compileScores() {
         ArrayList<ArrayList<Integer>> allRaws = new ArrayList<>(Arrays.asList(rawO, rawC, rawE, rawA, rawN));
+
         int count = 0;
         for (ArrayList<Integer> raw : allRaws) {
             for (int i = 0; i < raw.size(); i++) {
@@ -74,9 +75,9 @@ public class Percentile extends FileReader implements Score {
                 }
             }
             if (percentile.get(count) == null) {
-                percentile.set(count, 99.9);
+                percentile.set(count, 99.99);
             } else if (percentile.get(count) == 0.0) {
-                percentile.set(count, 1.0);
+                percentile.set(count, 1.00);
             }
             count++;
         }

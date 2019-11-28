@@ -17,18 +17,18 @@ public class Main {
 //        Question q4 = new Question(4, "I am fearful of the future", false);
 //        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
         */
-////        StaticGUI.run();
-        WebScraper webScraper = new WebScraper();
-        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(100);
-        for (Question q: bigFiveQuestions) {
-            System.out.println(q.getQuestion());
-        }
-        for (Question q: bigFiveQuestions) {
-            System.out.println(q.getCategory());
-        }
+        StaticGUI.run();
+//        WebScraper webScraper = new WebScraper();
+//        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(20);
+//        for (Question q: bigFiveQuestions) {
+//            System.out.println(q.getQuestion());
+//        }
+//        for (Question q: bigFiveQuestions) {
+//            System.out.println(q.getCategory());
+//        }
 //
 //        WebScraper webScraper = new WebScraper();
-//        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(10);
+//        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(20);
 //        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
 //        QuizRunner quizRunner = new QuizRunner();
 //        quizRunner.run(bigFiveQuiz);

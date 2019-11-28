@@ -44,4 +44,24 @@ public class Question {
         isReverseCoded = reverseCoded;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Question question1 = (Question) o;
+        return category == question1.category
+                &&
+                Objects.equals(question, question1.question)
+                &&
+                Objects.equals(isReverseCoded, question1.isReverseCoded);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, question, isReverseCoded);
+    }
 }

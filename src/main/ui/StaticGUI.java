@@ -1,5 +1,6 @@
 package ui;
 
+import model.Percentile;
 import model.Question;
 import model.Quiz;
 import model.RawScore;
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class StaticGUI extends JFrame {
@@ -29,6 +31,7 @@ public class StaticGUI extends JFrame {
     private static Container startPage = createStartPage();
     private static Container questionPage = createQuestionPage();
     private static RawScore rawScore;
+    private static Percentile percentile;
 
     private static JButton b1;
     private static JButton b2;
@@ -77,11 +80,17 @@ public class StaticGUI extends JFrame {
         result.setSize(900, 600);
         makeQuestionButtons(result);
         makeQuestionLabel(result);
-        makeQuestionButtonsActionable(e -> questionPageActionPerformed(e));
+        makeQuestionButtonsActionable(e -> {
+            try {
+                questionPageActionPerformed(e);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
         return result;
     }
 
-    private static void questionPageActionPerformed(ActionEvent e) {
+    private static void questionPageActionPerformed(ActionEvent e) throws IOException {
         setAnswer(e);
         ++count;
         if (quiz.getQuestions().size() > count) {
@@ -94,6 +103,8 @@ public class StaticGUI extends JFrame {
             } catch (IOException ee) {
                 System.out.println("Scores could not be stored");
             }
+            percentile = new Percentile(rawScore.getRawScore(), "./data/rawscorebank.txt");
+            percentile.compileScores();
             Container resultsPage = createResultsPage();
             navigateTo(resultsPage);
         }
@@ -149,19 +160,20 @@ public class StaticGUI extends JFrame {
     }
 
     private static void createResultsLabel(Container result) {
-        JLabel t1 = new JLabel("Your results (in raw scores):");
-        JLabel t2 = new JLabel("Openness: " + rawScore.getRawScore().get(0));
-        JLabel t3 = new JLabel("Conscientiousness: " + rawScore.getRawScore().get(1));
-        JLabel t4 = new JLabel("Extroversion: " + rawScore.getRawScore().get(2));
-        JLabel t5 = new JLabel("Agreeableness: " + rawScore.getRawScore().get(3));
-        JLabel t6 = new JLabel("Neuroticism: " + rawScore.getRawScore().get(4));
+        DecimalFormat df = new DecimalFormat("#.##");
+        JLabel t1 = new JLabel("Your results (in percentiles):");
+        JLabel t2 = new JLabel("Openness: " + df.format(percentile.getPercentile().get(0)));
+        JLabel t3 = new JLabel("Conscientiousness: " + df.format(percentile.getPercentile().get(1)));
+        JLabel t4 = new JLabel("Extroversion: " + df.format(percentile.getPercentile().get(2)));
+        JLabel t5 = new JLabel("Agreeableness: " + df.format(percentile.getPercentile().get(3)));
+        JLabel t6 = new JLabel("Neuroticism: " + df.format(percentile.getPercentile().get(4)));
 
-        t1.setBounds(350,50, 300,30);
-        t2.setBounds(350,100, 300,30);
-        t3.setBounds(350,120, 300,30);
-        t4.setBounds(350,140, 300,30);
-        t5.setBounds(350,160, 300,30);
-        t6.setBounds(350,180, 300,30);
+        t1.setBounds(350, 50, 300, 30);
+        t2.setBounds(350, 100, 300, 30);
+        t3.setBounds(350, 120, 300, 30);
+        t4.setBounds(350, 140, 300, 30);
+        t5.setBounds(350, 160, 300, 30);
+        t6.setBounds(350, 180, 300, 30);
 
         result.add(t1);
         result.add(t2);
