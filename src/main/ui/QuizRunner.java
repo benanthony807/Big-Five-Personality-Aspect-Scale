@@ -23,7 +23,7 @@ class QuizRunner {
         } catch (IOException e) {
             System.out.println("Scores could not be stored");
         }
-        Percentile percentile = new Percentile(rawScore.getRawScore());
+        Percentile percentile = new Percentile(rawScore.getRawScore(), "./data/rawscorebank.txt");
         percentile.compileScores();
         percentile.getResults();
 //        rawScore.getResults();

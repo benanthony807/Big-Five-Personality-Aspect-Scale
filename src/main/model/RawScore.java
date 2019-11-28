@@ -1,8 +1,6 @@
 package model;
 
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import observer.QuizTaker;
 
 import java.io.*;
@@ -11,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.io.PrintWriter;
 
-public class RawScore extends FileReaderWriter implements Score {
+public class RawScore extends FileReader implements Score {
 
     private HashMap<Integer, Integer> rawScore;
     protected Quiz quiz;
@@ -81,7 +79,6 @@ public class RawScore extends FileReaderWriter implements Score {
 
     //MODIFIES: file with path name output
     //EFFECTS: adds this.rawScores to the end of writerFile
-    @Override
     public void write(List<String> lines, String output) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(output, "UTF-8");
         lines.add(rawScore.get(0) + "   " + rawScore.get(1) + "   " + rawScore.get(2) + "   "

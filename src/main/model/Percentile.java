@@ -3,9 +3,9 @@ package model;
 import java.io.IOException;
 import java.util.*;
 
-public class Percentile extends FileReaderWriter implements Score {
+public class Percentile extends FileReader implements Score {
 
-    private ArrayList<Integer> percentile = new ArrayList<>();
+    private ArrayList<Integer> percentile;
     private ArrayList<Integer> allLines;
     private ArrayList<Integer> rawO;
     private ArrayList<Integer> rawC;
@@ -14,14 +14,48 @@ public class Percentile extends FileReaderWriter implements Score {
     private ArrayList<Integer> rawN;
     private HashMap<Integer, Integer> rawScore;
 
-    public Percentile(HashMap<Integer, Integer> rawScore) throws IOException {
+    public Percentile(HashMap<Integer, Integer> rawScore, String input) throws IOException {
         this.rawScore = rawScore;
-        allLines = createAllLines();
+        allLines = createAllLines(input);
         rawO = parseRawScores(0);
         rawC = parseRawScores(1);
         rawE = parseRawScores(2);
         rawA = parseRawScores(3);
         rawN = parseRawScores(4);
+        percentile =  new ArrayList<>(Arrays.asList(0,0,0,0,0));
+    }
+
+    //getters
+    public ArrayList<Integer> getAllLines() {
+        return allLines;
+    }
+
+    public ArrayList<Integer> getRawO() {
+        return rawO;
+    }
+
+    public ArrayList<Integer> getRawC() {
+        return rawC;
+    }
+
+    public ArrayList<Integer> getRawE() {
+        return rawE;
+    }
+
+    public ArrayList<Integer> getRawA() {
+        return rawA;
+    }
+
+    public ArrayList<Integer> getRawN() {
+        return rawN;
+    }
+
+    public HashMap<Integer, Integer> getRawScore() {
+        return rawScore;
+    }
+
+    public ArrayList<Integer> getPercentile() {
+        return percentile;
     }
 
     //REQUIRES: answers are integers from 1-5
@@ -31,12 +65,15 @@ public class Percentile extends FileReaderWriter implements Score {
     public void compileScores() {
         ArrayList<ArrayList<Integer>> allRaws = new ArrayList<>(Arrays.asList(rawO, rawC, rawC, rawE, rawA, rawN));
         int count = 0;
-        for (ArrayList<Integer> raw: allRaws) {
+        for (ArrayList<Integer> raw : allRaws) {
             for (int i = 0; i < raw.size(); i++) {
-                if (rawO.get(i) > rawScore.get(count)) {
-                    percentile.add(i / raw.size() * 100);
+                if (raw.get(i) > rawScore.get(count)) {
+                    percentile.set(count, i / raw.size() * 100);
                     break;
                 }
+            }
+            if (percentile.get(count) == 0) {
+                percentile.set(count, 100);
             }
             count++;
         }
@@ -54,16 +91,20 @@ public class Percentile extends FileReaderWriter implements Score {
     }
 
 
-    private ArrayList<Integer> createAllLines() throws IOException {
-        List<String> asString = read("./data/rawscorebank.txt");
+    ArrayList<Integer> createAllLines(String input) throws IOException {
+        List<String> lines = read(input);
         ArrayList<Integer> allLines = new ArrayList<>();
-        for (String s : asString) {
-            allLines.add(Integer.parseInt(s));
+        for (String line : lines) {
+            ArrayList<String> partsOfLine = splitOnSpace(line);
+            for (String part : partsOfLine) {
+                allLines.add(Integer.parseInt(part));
+            }
         }
         return allLines;
     }
 
-    private ArrayList<Integer> parseRawScores(int category) {
+
+    ArrayList<Integer> parseRawScores(int category) {
         ArrayList<Integer> parsed = new ArrayList<>();
         for (int i = category; i < allLines.size(); i += 5) {
             parsed.add(allLines.get(i));
