@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PercentileTest {
+class PercentileTest {
 
     private Percentile percentile;
     private RawScore rawScore;
@@ -81,14 +81,14 @@ public class PercentileTest {
 
         percentile.getResults();
         assertEquals("Your results (in percentiles):\nOpenness: 1.0\nConscientiousness: " +
-                "1.0\nExtroversion: 50.0\nAgreeableness: 50.0\nNeuroticism: 99.9\n", outContent.toString());
+                "1.0\nExtroversion: 50.0\nAgreeableness: 50.0\nNeuroticism: 99.99\n", outContent.toString());
     }
 
     @Test
     void testCompileScoresTopPercentile() {
         rawScore.setRawScore(new ArrayList<>(Arrays.asList(5,5,5,5,5)));
         percentile.compileScores();
-        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(99.9, 99.9, 99.9, 99.9, 99.9));
+        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(99.99, 99.99, 99.99, 99.99, 99.99));
         assertEquals(expected, percentile.getPercentile());
     }
 
@@ -96,7 +96,7 @@ public class PercentileTest {
     void testCompileCompileScoresMiddlePercentiles() {
         rawScore.setRawScore(new ArrayList<>(Arrays.asList(0,1,2,3,4)));
         percentile.compileScores();
-        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(1.0,1.0,50.0,50.0,99.9));
+        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(1.0,1.0,50.0,50.0,99.99));
         assertEquals(expected, percentile.getPercentile());
     }
 }

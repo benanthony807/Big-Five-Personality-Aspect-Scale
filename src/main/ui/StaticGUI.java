@@ -11,10 +11,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class StaticGUI extends JFrame {
+class StaticGUI extends JFrame {
     // based off of code from https://www.codespeedy.com/quiz-game-using-java-swing-gui/
     //                    and https://stackoverflow.com/questions/29029277/quiz-game-with-multiple-choice-in-java-gui
     private static Quiz quiz;
@@ -42,7 +41,8 @@ public class StaticGUI extends JFrame {
     private static int count = 0;
 
 
-    public static void run() {
+    //EFFECTS: builds and runs a big five quiz GUI
+    static void run() {
         JFrame.setDefaultLookAndFeelDecorated(true);
         instance = new StaticGUI();
         instance.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -160,13 +160,12 @@ public class StaticGUI extends JFrame {
     }
 
     private static void createResultsLabel(Container result) {
-        DecimalFormat df = new DecimalFormat("#.##");
         JLabel t1 = new JLabel("Your results (in percentiles):");
-        JLabel t2 = new JLabel("Openness: " + df.format(percentile.getPercentile().get(0)));
-        JLabel t3 = new JLabel("Conscientiousness: " + df.format(percentile.getPercentile().get(1)));
-        JLabel t4 = new JLabel("Extroversion: " + df.format(percentile.getPercentile().get(2)));
-        JLabel t5 = new JLabel("Agreeableness: " + df.format(percentile.getPercentile().get(3)));
-        JLabel t6 = new JLabel("Neuroticism: " + df.format(percentile.getPercentile().get(4)));
+        JLabel t2 = new JLabel("Openness: " + percentile.getPercentile().get(0));
+        JLabel t3 = new JLabel("Conscientiousness: " + percentile.getPercentile().get(1));
+        JLabel t4 = new JLabel("Extroversion: " + percentile.getPercentile().get(2));
+        JLabel t5 = new JLabel("Agreeableness: " + percentile.getPercentile().get(3));
+        JLabel t6 = new JLabel("Neuroticism: " + percentile.getPercentile().get(4));
 
         t1.setBounds(350, 50, 300, 30);
         t2.setBounds(350, 100, 300, 30);

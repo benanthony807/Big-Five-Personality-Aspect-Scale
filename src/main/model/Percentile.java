@@ -27,31 +27,31 @@ public class Percentile extends FileReader implements Score {
     }
 
     //getters
-    public ArrayList<Integer> getAllLines() {
+    ArrayList<Integer> getAllLines() {
         return allLines;
     }
 
-    public ArrayList<Integer> getRawO() {
+    ArrayList<Integer> getRawO() {
         return rawO;
     }
 
-    public ArrayList<Integer> getRawC() {
+    ArrayList<Integer> getRawC() {
         return rawC;
     }
 
-    public ArrayList<Integer> getRawE() {
+    ArrayList<Integer> getRawE() {
         return rawE;
     }
 
-    public ArrayList<Integer> getRawA() {
+    ArrayList<Integer> getRawA() {
         return rawA;
     }
 
-    public ArrayList<Integer> getRawN() {
+    ArrayList<Integer> getRawN() {
         return rawN;
     }
 
-    public HashMap<Integer, Integer> getRawScore() {
+    HashMap<Integer, Integer> getRawScore() {
         return rawScore;
     }
 
@@ -65,12 +65,13 @@ public class Percentile extends FileReader implements Score {
     @Override
     public void compileScores() {
         ArrayList<ArrayList<Integer>> allRaws = new ArrayList<>(Arrays.asList(rawO, rawC, rawE, rawA, rawN));
-
+        // double formatting taken from https://stackoverflow.com/questions/8137218/trim-double-to-2-decimal-places
+        DecimalFormat df = new DecimalFormat("#.##");
         int count = 0;
         for (ArrayList<Integer> raw : allRaws) {
             for (int i = 0; i < raw.size(); i++) {
                 if (raw.get(i) > rawScore.get(count)) {
-                    percentile.set(count, ((double) i / (double) raw.size() * 100));
+                    percentile.set(count, Double.parseDouble(df.format(((double) i / (double) raw.size() * 100))));
                     break;
                 }
             }
@@ -86,13 +87,13 @@ public class Percentile extends FileReader implements Score {
     //EFFECTS: prints out results of quiz (in percentiles)
     @Override
     public void getResults() {
-        DecimalFormat df = new DecimalFormat("#.##");
+//        DecimalFormat df = new DecimalFormat("#.##");
         System.out.println("Your results (in percentiles):");
-        System.out.println("Openness: " + df.format(percentile.get(0)));
-        System.out.println("Conscientiousness: " + df.format(percentile.get(1)));
-        System.out.println("Extroversion: " + df.format(percentile.get(2)));
-        System.out.println("Agreeableness: " + df.format(percentile.get(3)));
-        System.out.println("Neuroticism: " + df.format(percentile.get(4)));
+        System.out.println("Openness: " + (percentile.get(0)));
+        System.out.println("Conscientiousness: " + (percentile.get(1)));
+        System.out.println("Extroversion: " + (percentile.get(2)));
+        System.out.println("Agreeableness: " + (percentile.get(3)));
+        System.out.println("Neuroticism: " + (percentile.get(4)));
     }
 
 
