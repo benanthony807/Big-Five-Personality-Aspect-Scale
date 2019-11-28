@@ -16,20 +16,23 @@ public class Main {
 //        Question q3 = new Question(3, "I like to please others", false);
 //        Question q4 = new Question(4, "I am fearful of the future", false);
 //        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q0, q1, q2, q3, q4));
-
-        WebScraper webScraper = new WebScraper();
-        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(5);
-        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
-
-        QuizRunner quizRunner = new QuizRunner();
-        quizRunner.run(bigFiveQuiz);
         */
-//        StaticGUI.run();
+////        StaticGUI.run();
         WebScraper webScraper = new WebScraper();
-        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(60);
+        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(100);
         for (Question q: bigFiveQuestions) {
             System.out.println(q.getQuestion());
-            System.out.println("Category: " + q.getCategory());
         }
+        for (Question q: bigFiveQuestions) {
+            System.out.println(q.getCategory());
+        }
+//
+//        WebScraper webScraper = new WebScraper();
+//        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(10);
+//        Quiz bigFiveQuiz = new Quiz(bigFiveQuestions);
+//        QuizRunner quizRunner = new QuizRunner();
+//        quizRunner.run(bigFiveQuiz);
+
     }
 }
+

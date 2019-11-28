@@ -81,8 +81,8 @@ public class RawScore extends FileReader implements Score {
     //EFFECTS: adds this.rawScores to the end of writerFile
     public void write(List<String> lines, String output) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(output, "UTF-8");
-        lines.add(rawScore.get(0) + "   " + rawScore.get(1) + "   " + rawScore.get(2) + "   "
-                + rawScore.get(3) + "   " + rawScore.get(4));
+        lines.add(rawScore.get(0) + "\t" + rawScore.get(1) + "\t" + rawScore.get(2) + "\t"
+                + rawScore.get(3) + "\t" + rawScore.get(4));
         for (String line : lines) {
             writer.println(line);
         }

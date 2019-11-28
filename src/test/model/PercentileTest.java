@@ -3,7 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -68,14 +70,33 @@ public class PercentileTest {
 
     @Test
     void testGetResults() {
+        rawScore.setRawScore(new ArrayList<>(Arrays.asList(0,1,2,3,4)));
+        percentile.compileScores();
+        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(1.0,1.0,50.0,50.0,99.9));
 
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        // code taken from
+        // https://stackoverflow.com/questions/32241057/how-to-test-a-print-method-in-java-using-junit
+
+        percentile.getResults();
+        assertEquals("Your results (in percentiles):\nOpenness: 1.0\nConscientiousness: " +
+                "1.0\nExtroversion: 50.0\nAgreeableness: 50.0\nNeuroticism: 99.9\n", outContent.toString());
     }
 
     @Test
-    void testCompileScores() {
+    void testCompileScoresTopPercentile() {
         rawScore.setRawScore(new ArrayList<>(Arrays.asList(5,5,5,5,5)));
         percentile.compileScores();
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(100,100,100,100,100));
+        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(99.9, 99.9, 99.9, 99.9, 99.9));
+        assertEquals(expected, percentile.getPercentile());
+    }
+
+    @Test
+    void testCompileCompileScoresMiddlePercentiles() {
+        rawScore.setRawScore(new ArrayList<>(Arrays.asList(0,1,2,3,4)));
+        percentile.compileScores();
+        ArrayList<Double> expected = new ArrayList<>(Arrays.asList(1.0,1.0,50.0,50.0,99.9));
         assertEquals(expected, percentile.getPercentile());
     }
 }

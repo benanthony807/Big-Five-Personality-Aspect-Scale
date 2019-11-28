@@ -1,11 +1,12 @@
 package model;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Percentile extends FileReader implements Score {
 
-    private ArrayList<Integer> percentile;
+    private ArrayList<Double> percentile;
     private ArrayList<Integer> allLines;
     private ArrayList<Integer> rawO;
     private ArrayList<Integer> rawC;
@@ -22,7 +23,7 @@ public class Percentile extends FileReader implements Score {
         rawE = parseRawScores(2);
         rawA = parseRawScores(3);
         rawN = parseRawScores(4);
-        percentile =  new ArrayList<>(Arrays.asList(0,0,0,0,0));
+        percentile =  new ArrayList<>(Arrays.asList(null,null,null,null,null));
     }
 
     //getters
@@ -54,7 +55,7 @@ public class Percentile extends FileReader implements Score {
         return rawScore;
     }
 
-    public ArrayList<Integer> getPercentile() {
+    public ArrayList<Double> getPercentile() {
         return percentile;
     }
 
@@ -63,17 +64,19 @@ public class Percentile extends FileReader implements Score {
     //EFFECTS: turns question-answer data into raw scores
     @Override
     public void compileScores() {
-        ArrayList<ArrayList<Integer>> allRaws = new ArrayList<>(Arrays.asList(rawO, rawC, rawC, rawE, rawA, rawN));
+        ArrayList<ArrayList<Integer>> allRaws = new ArrayList<>(Arrays.asList(rawO, rawC, rawE, rawA, rawN));
         int count = 0;
         for (ArrayList<Integer> raw : allRaws) {
             for (int i = 0; i < raw.size(); i++) {
                 if (raw.get(i) > rawScore.get(count)) {
-                    percentile.set(count, i / raw.size() * 100);
+                    percentile.set(count, ((double) i / (double) raw.size() * 100));
                     break;
                 }
             }
-            if (percentile.get(count) == 0) {
-                percentile.set(count, 100);
+            if (percentile.get(count) == null) {
+                percentile.set(count, 99.9);
+            } else if (percentile.get(count) == 0.0) {
+                percentile.set(count, 1.0);
             }
             count++;
         }
@@ -82,12 +85,13 @@ public class Percentile extends FileReader implements Score {
     //EFFECTS: prints out results of quiz (in percentiles)
     @Override
     public void getResults() {
+        DecimalFormat df = new DecimalFormat("#.##");
         System.out.println("Your results (in percentiles):");
-        System.out.println("Openness: " + percentile.get(0));
-        System.out.println("Conscientiousness: " + percentile.get(1));
-        System.out.println("Extroversion: " + percentile.get(2));
-        System.out.println("Agreeableness: " + percentile.get(3));
-        System.out.println("Neuroticism: " + percentile.get(4));
+        System.out.println("Openness: " + df.format(percentile.get(0)));
+        System.out.println("Conscientiousness: " + df.format(percentile.get(1)));
+        System.out.println("Extroversion: " + df.format(percentile.get(2)));
+        System.out.println("Agreeableness: " + df.format(percentile.get(3)));
+        System.out.println("Neuroticism: " + df.format(percentile.get(4)));
     }
 
 
