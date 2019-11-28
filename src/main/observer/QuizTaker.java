@@ -5,7 +5,7 @@ import java.util.Observable;
 
 public class QuizTaker implements java.util.Observer {
 
-    //EFFECTS:
+    //EFFECTS: Prints "nice job quiz done"
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("nice job quiz done");

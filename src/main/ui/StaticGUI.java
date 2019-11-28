@@ -38,7 +38,8 @@ public class StaticGUI extends JFrame {
     private static JLabel lb1;
     private static int count = 0;
 
-    public static void main(String[] args) {
+
+    public static void run() {
         JFrame.setDefaultLookAndFeelDecorated(true);
         instance = new StaticGUI();
         instance.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -54,7 +55,7 @@ public class StaticGUI extends JFrame {
 
     private static Quiz createQuiz() throws IOException {
         WebScraper webScraper = new WebScraper();
-        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(1);
+        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(30);
         return new Quiz(bigFiveQuestions);
     }
 

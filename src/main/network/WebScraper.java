@@ -11,9 +11,9 @@ import java.util.Random;
 
 public class WebScraper {
 
-    int category;
-    boolean keyed;
-    ArrayList<Question> questions = new ArrayList<Question>();
+    private int category;
+    private boolean keyed;
+    private ArrayList<Question> questions = new ArrayList<Question>();
 
     //REQUIRES:
     //MODIFIES: this
@@ -32,7 +32,7 @@ public class WebScraper {
     }
 
     private void parseQuestion(Elements rows) {
-        for (int i = 2; i < rows.size(); i++) {
+        for (int i = 1; i < rows.size(); i++) {
             Elements columns = rows.get(i).select("td");
             for (int j = 0; j < columns.size(); j++) {
                 Element column = columns.get(j);

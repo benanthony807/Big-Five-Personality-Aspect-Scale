@@ -18,6 +18,8 @@ public abstract class FileReaderWriter extends Observable {
 
     //MODIFIES: writerFile.txt
     //EFFECTS: adds this.rawScores to the end of writerFile
-    public abstract void write(List<String> l, String wf) throws FileNotFoundException, UnsupportedEncodingException;
+    public void write(List<String> l, String wf) throws FileNotFoundException, UnsupportedEncodingException {
+
+    }
 
 }

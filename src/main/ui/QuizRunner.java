@@ -1,6 +1,7 @@
 package ui;
 
 import exceptions.IntegersOutOfBoundsException;
+import model.Percentile;
 import model.Quiz;
 import model.RawScore;
 
@@ -12,7 +13,7 @@ class QuizRunner {
     //MODIFIES: this
     //EFFECTS: runs the quiz setup, if that passes runs the actual quiz, then runs a method to deal
     //         with scores and returns percentile scores
-    void run(Quiz quiz) {
+    void run(Quiz quiz) throws IOException {
         setUpQuiz();
         runQuiz(quiz);
         RawScore rawScore = new RawScore(quiz);
@@ -22,7 +23,10 @@ class QuizRunner {
         } catch (IOException e) {
             System.out.println("Scores could not be stored");
         }
-        rawScore.getResults();
+        Percentile percentile = new Percentile(rawScore.getRawScore());
+        percentile.compileScores();
+        percentile.getResults();
+//        rawScore.getResults();
     }
 
     //EFFECTS: welcomes users, asks them if they're ready to start quiz, if yes starts quiz, if not
