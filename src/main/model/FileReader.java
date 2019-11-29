@@ -18,15 +18,11 @@ public abstract class FileReader extends Observable {
         return Files.readAllLines(Paths.get(input));
     }
 
-    static ArrayList<String> splitOnSpace(String line) {
+    //taken from FileReaderWriter example
+    //EFFECTS: splits string at occurrences of tab, returns split strings as ArrayList<String>
+    static ArrayList<String> splitOnTab(String line) {
         String[] splits = line.split("\t");
         return new ArrayList<>(Arrays.asList(splits));
     }
-
-//    //MODIFIES: writerFile.txt
-//    //EFFECTS: adds this.rawScores to the end of writerFile
-//    public void write(List<String> l, String wf) throws FileNotFoundException, UnsupportedEncodingException {
-//
-//    }
 
 }

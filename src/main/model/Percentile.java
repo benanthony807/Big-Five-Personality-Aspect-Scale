@@ -87,7 +87,6 @@ public class Percentile extends FileReader implements Score {
     //EFFECTS: prints out results of quiz (in percentiles)
     @Override
     public void getResults() {
-//        DecimalFormat df = new DecimalFormat("#.##");
         System.out.println("Your results (in percentiles):");
         System.out.println("Openness: " + (percentile.get(0)));
         System.out.println("Conscientiousness: " + (percentile.get(1)));
@@ -96,12 +95,12 @@ public class Percentile extends FileReader implements Score {
         System.out.println("Neuroticism: " + (percentile.get(4)));
     }
 
-
+    //EFFECTS: loads past raw scores from input, returns them as an ArrayList<Integer>
     ArrayList<Integer> createAllLines(String input) throws IOException {
         List<String> lines = read(input);
         ArrayList<Integer> allLines = new ArrayList<>();
         for (String line : lines) {
-            ArrayList<String> partsOfLine = splitOnSpace(line);
+            ArrayList<String> partsOfLine = splitOnTab(line);
             for (String part : partsOfLine) {
                 allLines.add(Integer.parseInt(part));
             }
@@ -109,7 +108,7 @@ public class Percentile extends FileReader implements Score {
         return allLines;
     }
 
-
+    //EFFECTS: filters out all elements of allLines not in category
     ArrayList<Integer> parseRawScores(int category) {
         ArrayList<Integer> parsed = new ArrayList<>();
         for (int i = category; i < allLines.size(); i += 5) {

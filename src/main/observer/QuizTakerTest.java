@@ -17,11 +17,11 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class QuizTakerTest {
+class QuizTakerTest {
 
-    QuizTaker quizTaker;
-    RawScore rawScore;
-    ArrayList<Question> questions;
+    private QuizTaker quizTaker;
+    private RawScore rawScore;
+    private ArrayList<Question> questions;
 
     @BeforeEach
     void setup() {

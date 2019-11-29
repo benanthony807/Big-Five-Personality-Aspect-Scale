@@ -13,11 +13,11 @@ public class WebScraper {
 
     private int category;
     private boolean keyed;
-    private ArrayList<Question> questions = new ArrayList<Question>();
+    private ArrayList<Question> questions = new ArrayList<>();
 
-    //REQUIRES:
     //MODIFIES: this
-    //EFFECTS: pulls questions from a website, returns a random list of Question with size elements
+    //EFFECTS: pulls questions from a website, returns a random list of Question with size elements (rounded
+    //         to the nearest multiple of 5)
     public ArrayList<Question> createQuestionBank(int size) throws IOException {
         scrapeQuestions();
         cleanQuestions();
@@ -137,8 +137,6 @@ public class WebScraper {
         }
         return newList;
     }
-
-
 }
 
 

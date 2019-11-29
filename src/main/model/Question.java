@@ -44,6 +44,8 @@ public class Question {
         isReverseCoded = reverseCoded;
     }
 
+
+    //EFFECTS: returns true if Questions have same question, category, and isReverseCoded
     @Override
     public boolean equals(Object o) {
         if (this == o) {

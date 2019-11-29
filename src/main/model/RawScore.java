@@ -29,7 +29,8 @@ public class RawScore extends FileReader implements Score {
         return quiz;
     }
 
-    public void setRawScore(ArrayList<Integer> scores) {
+
+    void setRawScore(ArrayList<Integer> scores) {
         for (int i = 0; i < scores.size(); i++) {
             if (!rawScore.containsKey(i)) {
                 rawScore.put(i, scores.get(i));
@@ -51,7 +52,6 @@ public class RawScore extends FileReader implements Score {
     }
 
     //REQUIRES: every question has an answer
-    //MODIFIES:
     //EFFECTS: sorts and sums answers by category
     HashMap<Integer, Integer> sortAnswers(ArrayList<Question> questions, ArrayList<Integer> answers) {
         HashMap<Integer, Integer> sortedAndSummed = new HashMap<>();

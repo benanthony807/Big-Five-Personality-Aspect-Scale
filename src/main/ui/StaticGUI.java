@@ -33,7 +33,6 @@ class StaticGUI extends JFrame {
     private static Container startPage = createStartPage();
     private static Container questionPage = createQuestionPage();
     private static Container instructionsPage = createInstructionsPage();
-    private static RawScore rawScore;
     private static Percentile percentile;
 
     private static JButton b1;
@@ -44,7 +43,6 @@ class StaticGUI extends JFrame {
     private static JLabel lb1;
     private static JLabel lb2;
     private static int count = 0;
-
 
     //EFFECTS: builds and runs a big five quiz GUI
     static void run() {
@@ -71,26 +69,22 @@ class StaticGUI extends JFrame {
         JPanel result = new JPanel(null);
         result.setSize(900, 600);
 
-//        JLabel lb1 = new JLabel("Are you ready to start the quiz?");
-//        lb1.setBounds(360, 300, 600, 80);
-
         JLabel lb2 = new JLabel("Big Five Personality Aspect Scale");
-        lb2.setBounds(260, 10, 600, 80);
-        lb2.setFont(new Font("Helvetica", Font.BOLD, 25));
+        lb2.setBounds(40, 30, 600, 80);
+        lb2.setFont(new Font("Helvetica", Font.BOLD, 20));
 
         //image adding taken from https://stackoverflow.com/questions/3775373/java-how-to-add-image-to-jlabel
-        ImageIcon img1 = new ImageIcon("./data/BigFiveImage.png");
-        JLabel imglbl1 = new JLabel(img1);
-        imglbl1.setBounds(340, 130, 220, 220);
+        ImageIcon img1 = new ImageIcon("./data/BigFiveImage2.png");
+        JLabel imgLabel1 = new JLabel(img1);
+        imgLabel1.setBounds(240, 20, 450, 400);
 
         JButton b1 = new JButton("Start");
         b1.setBounds(280, 450, 350, 60);
         b1.addActionListener(e -> navigateTo(instructionsPage));
 
         result.add(b1);
-//        result.add(lb1);
         result.add(lb2);
-        result.add(imglbl1);
+        result.add(imgLabel1);
         return result;
     }
 
@@ -116,7 +110,7 @@ class StaticGUI extends JFrame {
             lb1.setText(quiz.getQuestions().get(count).getQuestion());
             lb2.setText((count + 1) + "/" + SIZE);
         } else {
-            rawScore = new RawScore(quiz);
+            RawScore rawScore = new RawScore(quiz);
             rawScore.compileScores();
             try {
                 rawScore.write(rawScore.read("./data/rawscorebank.txt"), "./data/rawscorebank.txt");
@@ -180,7 +174,6 @@ class StaticGUI extends JFrame {
         result.add(b1);
         return result;
     }
-
 
     private static Container createResultsPage() {
         JPanel result = new JPanel(null);

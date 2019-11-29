@@ -16,7 +16,6 @@ class PercentileTest {
 
     private Percentile percentile;
     private RawScore rawScore;
-    private Quiz quiz;
     private Question q1 = new Question(0, "test question1", false);
     private Question q2 = new Question(2, "test question2", false);
     private Question q3 = new Question(3, "test question3", false);
@@ -25,7 +24,7 @@ class PercentileTest {
 
     @BeforeEach
     void setup() throws IOException {
-        quiz = new Quiz(questions);
+        Quiz quiz = new Quiz(questions);
         rawScore = new RawScore(quiz);
         percentile = new Percentile(rawScore.getRawScore(), "./data/testRawScoreBankForPercentile.txt");
     }

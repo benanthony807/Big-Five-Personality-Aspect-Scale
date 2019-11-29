@@ -13,23 +13,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class QuizTest {
-    RawScore testRawScore;
-    ArrayList<Question> testQuestions;
-    ArrayList<Integer> testAnswers;
-    Question testQ1;
-    Question testQ2;
-    Question testQ3;
-    Quiz testQuiz;
+class QuizTest {
+    private RawScore testRawScore;
+    private ArrayList<Question> testQuestions;
+    private ArrayList<Integer> testAnswers;
+    private Question testQ1;
+    private Question testQ2;
+    private Question testQ3;
+    private Quiz testQuiz;
 
 
     @BeforeEach
-    public void runBefore() {
+    void runBefore() {
         testQ1 = new Question(0, "test question1", true);
         testQ2 = new Question(4, "test question2", false);
         testQ3 = new Question(0, "test question3", true);
-        testQuestions = new ArrayList<Question>(Arrays.asList(testQ1, testQ2, testQ3));
-        testAnswers = new ArrayList<Integer>(Arrays.asList(1, 2, 5));
+        testQuestions = new ArrayList<>(Arrays.asList(testQ1, testQ2, testQ3));
+        testAnswers = new ArrayList<>(Arrays.asList(1, 2, 5));
         testQuiz = new Quiz(testQuestions);
         testQuiz.setAnswers(testAnswers);
 
@@ -38,7 +38,7 @@ public class QuizTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertEquals(testQuestions, testQuiz.getQuestions());
 
         ArrayList<Integer> expectedAnswers = new ArrayList<>(Arrays.asList(1,2,5));
@@ -86,7 +86,7 @@ public class QuizTest {
     }
 
     @Test
-    public void testUnreverseRawScores() {
+    void testUnreverseRawScores() {
         ArrayList<Integer> answers = new ArrayList<>(Arrays.asList(1,2,3));
         ArrayList<Question> questions = new ArrayList<>(Arrays.asList(testQ1, testQ2, testQ3));
         Quiz quiz = new Quiz(questions);
