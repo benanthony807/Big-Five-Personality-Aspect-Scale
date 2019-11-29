@@ -16,6 +16,9 @@ import java.util.ArrayList;
 class StaticGUI extends JFrame {
     // based off of code from https://www.codespeedy.com/quiz-game-using-java-swing-gui/
     //                    and https://stackoverflow.com/questions/29029277/quiz-game-with-multiple-choice-in-java-gui
+
+    private static final int SIZE = 30;
+
     private static Quiz quiz;
 
     static {
@@ -29,6 +32,7 @@ class StaticGUI extends JFrame {
     private static StaticGUI instance;
     private static Container startPage = createStartPage();
     private static Container questionPage = createQuestionPage();
+    private static Container instructionsPage = createInstructionsPage();
     private static RawScore rawScore;
     private static Percentile percentile;
 
@@ -38,6 +42,7 @@ class StaticGUI extends JFrame {
     private static JButton b4;
     private static JButton b5;
     private static JLabel lb1;
+    private static JLabel lb2;
     private static int count = 0;
 
 
@@ -58,20 +63,34 @@ class StaticGUI extends JFrame {
 
     private static Quiz createQuiz() throws IOException {
         WebScraper webScraper = new WebScraper();
-        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(30);
+        ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(SIZE);
         return new Quiz(bigFiveQuestions);
     }
 
     private static Container createStartPage() {
         JPanel result = new JPanel(null);
         result.setSize(900, 600);
-        JLabel lb1 = new JLabel("Are you ready to start the quiz?");
-        lb1.setBounds(360, 100, 600, 80);
+
+//        JLabel lb1 = new JLabel("Are you ready to start the quiz?");
+//        lb1.setBounds(360, 300, 600, 80);
+
+        JLabel lb2 = new JLabel("Big Five Personality Aspect Scale");
+        lb2.setBounds(260, 10, 600, 80);
+        lb2.setFont(new Font("Helvetica", Font.BOLD, 25));
+
+        //image adding taken from https://stackoverflow.com/questions/3775373/java-how-to-add-image-to-jlabel
+        ImageIcon img1 = new ImageIcon("./data/BigFiveImage.png");
+        JLabel imglbl1 = new JLabel(img1);
+        imglbl1.setBounds(340, 130, 220, 220);
+
         JButton b1 = new JButton("Start");
-        b1.setBounds(250, 400, 414, 60);
-        b1.addActionListener(e -> navigateTo(questionPage));
+        b1.setBounds(280, 450, 350, 60);
+        b1.addActionListener(e -> navigateTo(instructionsPage));
+
         result.add(b1);
-        result.add(lb1);
+//        result.add(lb1);
+        result.add(lb2);
+        result.add(imglbl1);
         return result;
     }
 
@@ -95,6 +114,7 @@ class StaticGUI extends JFrame {
         ++count;
         if (quiz.getQuestions().size() > count) {
             lb1.setText(quiz.getQuestions().get(count).getQuestion());
+            lb2.setText((count + 1) + "/" + SIZE);
         } else {
             rawScore = new RawScore(quiz);
             rawScore.compileScores();
@@ -138,9 +158,27 @@ class StaticGUI extends JFrame {
 
     private static void makeQuestionLabel(Container result) {
         lb1 = new JLabel(quiz.getQuestions().get(0).getQuestion());
-        lb1.setBounds(350, 200, 600, 30);
+        lb1.setBounds(200, 200, 700, 40);
         result.add(lb1);
-//        lb1.setFont(new Font("chiller", Font.BOLD, 20));
+        lb1.setFont(new Font("Helvetica", Font.PLAIN, 30));
+        lb2 = new JLabel((count + 1) + "/" + SIZE);
+        lb2.setBounds(750, 20, 100, 30);
+        result.add(lb2);
+    }
+
+    private static Container createInstructionsPage() {
+        JPanel result = new JPanel(null);
+        result.setSize(900, 600);
+        JLabel lb2 = new JLabel("Rate how strongly you agree with the following statements");
+        lb2.setFont(new Font("Helvetica", Font.PLAIN, 25));
+        lb2.setBounds(130,200,700,30);
+        result.add(lb2);
+
+        JButton b1 = new JButton("Continue");
+        b1.setBounds(280, 450, 350, 60);
+        b1.addActionListener(e -> navigateTo(questionPage));
+        result.add(b1);
+        return result;
     }
 
 
