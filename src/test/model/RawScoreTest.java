@@ -11,10 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 class RawScoreTest {
@@ -73,8 +70,8 @@ class RawScoreTest {
 
     @Test
     void testSortAnswers1Item() {
-        ArrayList<Question> testQuestion = new ArrayList<>(Arrays.asList(testQ1));
-        ArrayList<Integer> testAnswer = new ArrayList<>(Arrays.asList(1));
+        ArrayList<Question> testQuestion = new ArrayList<>(Collections.singletonList(testQ1));
+        ArrayList<Integer> testAnswer = new ArrayList<>(Collections.singletonList(1));
         ArrayList<Integer> asList = new ArrayList<>(Arrays.asList(1, 0, 0, 0, 0));
         HashMap<Integer, Integer> expected = new HashMap<>();
         for (int i = 0; i < asList.size(); i++) {
