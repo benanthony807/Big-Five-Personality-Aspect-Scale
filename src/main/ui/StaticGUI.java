@@ -60,6 +60,11 @@ class StaticGUI extends JFrame {
     }
 
     private static Quiz createQuiz() throws IOException {
+//        Question q1 = new Question(1, "I am always on time", false);
+//        Question q2 = new Question(2, "I am not the life of the party", true);
+//        Question q3 = new Question(3, "I like to please others", false);
+//        Question q4 = new Question(4, "I am fearful of the future", false);
+//        ArrayList<Question> bigFiveQuestions = new ArrayList<>(Arrays.asList(q1, q2, q3, q4));
         WebScraper webScraper = new WebScraper();
         ArrayList<Question> bigFiveQuestions = webScraper.createQuestionBank(SIZE);
         return new Quiz(bigFiveQuestions);

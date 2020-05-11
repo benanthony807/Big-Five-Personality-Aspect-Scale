@@ -2,7 +2,7 @@ package ui;
 
 import model.Question;
 import model.Quiz;
-import network.WebScraper;
+//import network.WebScraper;
 
 import java.io.IOException;
 import java.util.ArrayList;
